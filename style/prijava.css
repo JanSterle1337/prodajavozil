@@ -1,0 +1,56 @@
+html,body {
+    width: 100%;
+    height: 100%;
+}
+
+
+.prijava-template-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.box {
+    background: white;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    box-shadow:
+    
+    0px 0.1px 6.9px rgba(0, 0, 0, 0.018),
+    0.2px 0.3px 12px rgba(0, 0, 0, 0.029),
+    0.4px 0.7px 15.7px rgba(0, 0, 0, 0.037),
+    0.8px 1.2px 18.7px rgba(0, 0, 0, 0.043),
+    1.3px 1.9px 21.4px rgba(0, 0, 0, 0.048),
+    1.9px 2.8px 24.8px rgba(0, 0, 0, 0.054),
+    2.7px 4.1px 30.5px rgba(0, 0, 0, 0.063),
+    4px 6px 47px rgba(0, 0, 0, 0.08);
+ 
+}
+
+.left {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.right {
+    width: 35%;
+    height: 100%;
+    background: lightblue;
+}
+
+
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
