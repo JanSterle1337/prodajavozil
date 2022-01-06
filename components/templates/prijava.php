@@ -18,12 +18,29 @@ require "../logic/prijava.php";
         <div class="box">
             <div class="left">
                 <div class="login-wrapper">
-                    <h1>Prijava v Prodajavozil</h1>
-                    <p>Nek text blfnorwnfewfonwefp</p>
+                    <h1 class="login-header">Prijava v Prodajavozil.com</h1>
+                      <p class="login-subheader">Vpiši svoj e-račun ter geslo</p>  
+                      <form class="form" action="../logic/prijava.php" method="POST">
+
+                          <input type="email"  name="eRacun" placeholder="e-pošta" class="input">
+                          
+
+                          <input type="password" name="geslo" placeholder="geslo" class="input">
+                          
+
+                          <button type="submit" name="prijava" class="prijava">Prijava</button>
+
+                      </form>
                 </div>
             </div>
             <div class="right">
-                desna
+                <h1 class="hello">Pozdravljen!</h1>
+                <p class="text">Če želiš uporabiti vse funkcionalnosti aplikacije,
+                    se prosim prijavi ali pa naredi nov račun.</p>
+                <form>
+                    <button type="submit" class="registracija">Registracija</button>
+                </form>        
+
             </div>
         </div>      
     </div>

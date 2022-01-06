@@ -38,19 +38,241 @@ html,body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .right {
+    display: flex;
+    flex-direction: column;
     width: 35%;
     height: 100%;
-    background: lightblue;
+    background: #106dee;
+    align-items: center;
+    
 }
 
 
 .login-wrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
 }
+
+.login-header {
+    display: flex;
+    font-size: 70px;
+    color: #106dee;
+  
+}
+
+.login-subheader {
+    font-size: 25px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    width: 90%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.input {
+    margin: 25px;
+    height: 25px;
+    width: 60%;
+    border-bottom: 1px solid gray;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+    text-align: center;
+    font-size: 20px;
+    padding: 0px 0px 0px 5px;
+}
+
+.input:focus {
+    border-bottom: 2px solid #106dee;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    outline: none;
+}
+
+.hello {
+    font-size: 60px;
+    color: white;
+
+}
+
+.prijava {
+    width: 120px;
+    height: 50px;
+    border: 1px solid #106dee;
+    border-radius: 25px;
+    background: #106dee;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.prijava:hover {
+   background: #00B2FF;
+   border: 1px solid #00B2FF;
+   transition: 0.6s;
+}
+
+.text {
+    color: white;
+    font-size: 22px;
+    text-align: center;
+}
+
+
+.registracija {
+    width: 120px;
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 25px;
+    background: #106dee;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 130px;
+}
+
+.registracija:focus {
+    background: #00B2FF;
+    border: 1px solid #00B2FF;
+}
+
+.registracija:hover {
+    background: #00B2FF;
+    border: 1px solid #00B2FF;
+    transition: 0.6s;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    html,body {
+        width: 100%;
+        height: 100%;
+    }
+    .prijava-template-wrapper {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        align-items: center; 
+    }
+
+    .box {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .right {
+        width: 100%;
+        height: 30%;
+    }
+
+    .registracija {
+        margin: 20px;
+    }
+
+    .hello {
+        margin: 15px;
+        font-size: 40px;
+    }
+
+    .login-header {
+        font-size: 40px;
+    }
+
+
+    .input {
+        width: 90%;
+    }
+}
+
+
+@media only screen and (max-width: 550px) {
+    html,body {
+        width: 100%;
+        height: 100%;
+    }
+    .prijava-template-wrapper {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        align-items: center; 
+    }
+
+    .box {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .right {
+        width: 100%;
+        height: 30%;
+    }
+
+    .registracija {
+        margin: 5px;
+        height: 40px;
+        width: 100px;
+        font-size: 15px;
+    }
+
+    .hello {
+        margin: 15px;
+        font-size: 30px;
+    }
+
+    .login-header {
+        font-size: 30px;
+    }
+
+
+    .input {
+        width: 90%;
+    }
+
+
+    .login-subheader {
+        font-size: 18px;
+    }
+
+    .text {
+        font-size: 18px;
+        margin: 5px;
+    }
+}
+
+
 
 
 
