@@ -8,7 +8,7 @@ $database = "prodajavozil";
 $conn = mysqli_connect($host,$user,$password,$database);
 
 if ($conn) {
-    echo "connected";
+    //ok
 } else {
     die ("Connection failed: " . mysqli_connect_error());
 }

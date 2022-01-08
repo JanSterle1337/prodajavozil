@@ -1,3 +1,13 @@
+<?php
+
+    session_start();
+    echo "Moj id trenutno je: " . $_SESSION["id"] . "</br>";
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="sl">
 <head>
