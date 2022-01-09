@@ -2,7 +2,7 @@
 
 require ("../../config/db_connect.php");
 
-$errors = array("email" => "E-pošta ni vpisana", "ime" => " ime ni vpisano v polje","priimek" => "Priimek ni vpisan", "geslo" => "Geslo ni vpisano", "tel" => "Telefonska št ni vpisana");
+$errors = array("email" => "", "ime" => "","priimek" => "", "geslo" => "", "tel" => "");
 $validation = array ("email" => false, "ime" => false, "priimek" => false, "geslo" => false, "tel" => false);
 
 
@@ -65,7 +65,7 @@ function checkPriimek($priimek,&$errors, &$conn,&$validation) {
     } else {
         return true;
     }
-    return false;
+    
 }
 
 

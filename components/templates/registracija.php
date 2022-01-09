@@ -2,6 +2,9 @@
 
     require ("../logic/registracija.php");
     session_start();
+    if (isset($_SESSION['id'])) {
+        unset($_SESSION['id']);
+    }
     $email = $ime = $priimek = $geslo = $tel = "";
     
 
@@ -27,7 +30,7 @@
             echo "ime false";
         }
 
-        if (checkIme($priimek,$errors,$conn,$validation)) {
+        if (checkPriimek($priimek,$errors,$conn,$validation)) {
             $validation["priimek"] = true;
         } else {
             $validation["priimek"] = false;
@@ -64,7 +67,21 @@
             VALUES('$ime','$priimek','$email','$geslo','$tel');";
 
             if (mysqli_query($conn,$sql)) {
-                header("Location: domov.php");
+
+                $sql2 = "SELECT uporabnikID FROM Uporabnik WHERE ePosta = '$email';";
+                $result2 = mysqli_query($conn,$sql2);
+               
+                $data = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+
+                
+                foreach ($data as $ids) {
+                    foreach ($ids as $id) {
+                        $_SESSION['id'] = $id;
+                        Header("Location: domov.php");
+                    }
+                }
+
+               // header("Location: domov.php");
             } else {
                 echo "Query error: " . mysqli_error($conn);
             }
@@ -104,19 +121,19 @@
                     <h1 class="register-heading">Registriraj svoj račun</h1>
                     <form class="form" action="registracija.php" method="POST">
                        
-                        <input type="text" name="ime" placeholder="ime" class="input">
+                        <input type="text" name="ime" placeholder="ime" class="input" value="<?php echo $ime ?>">
                         <p class="error"><?php echo htmlspecialchars($errors["ime"]) ?></p>
                         
-                        <input type="text" name="priimek" placeholder="priimek" class="input">
+                        <input type="text" name="priimek" placeholder="priimek" class="input" value="<?php echo $priimek ?>">
                         <p class="error"><?php echo htmlspecialchars($errors["priimek"]) ?></p>
 
-                        <input type="email" name="eposta" placeholder="E-racun" class="input">
+                        <input type="email" name="eposta" placeholder="E-racun" class="input" value="<?php echo $email ?>">
                         <p class="error"><?php echo htmlspecialchars($errors["email"]) ?></p>
 
-                        <input type="password" name="geslo" placeholder="geslo" class="input">
+                        <input type="password" name="geslo" placeholder="geslo" class="input" value="<?php echo $geslo ?>">
                         <p class="error"><?php echo htmlspecialchars($errors["geslo"]) ?></p>
                         
-                        <input type="tel" name="tel" placeholder="telefonska št" class="input">
+                        <input type="tel" name="tel" placeholder="telefonska št" class="input" value="<?php echo $tel ?>">
                         <p class="error"><?php echo htmlspecialchars($errors["tel"]) ?></p>
 
                         <button type="submit" name="registracija" class="registracija-gumb">Registracija</button>
