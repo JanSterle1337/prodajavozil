@@ -43,6 +43,7 @@ if (isset($_SESSION['id'])) {
                 <div class="personal-wrapper">
                     <p class="personal-info">Jan Sterle</p>
                     <p class="personal-info">jan.sterle123@gmail.com</p>
+                    <p class="personal-info">070766355</p>
                     <p class="about-info">Tvoj profil še nima opisaTvoj profil še nima opisa
                     Tvoj profil še nima opisaTvoj profil še nima opisaTvoj profil še nima opisa
                     </p>

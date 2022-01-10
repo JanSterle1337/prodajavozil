@@ -34,6 +34,8 @@
   main {
     margin-left: 5rem;
     padding: 1rem;
+   
+    height: auto;
   }
   
   .navbar {
@@ -224,3 +226,11 @@
   .solar #solarIcon {
     display: block;
   }
+
+@media only screen and (max-width: 1000px) {
+
+  main {
+    padding: 0;
+  }
+
+}
