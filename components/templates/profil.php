@@ -2,8 +2,10 @@
 
 session_start();
 
+require ("../logic/profil.php");
+
 if (isset($_SESSION['id'])) {
-    //ok
+    $id = $_SESSION['id'];
 } 
 
 
@@ -35,18 +37,42 @@ if (isset($_SESSION['id'])) {
                 
                 <div class="profile-picture-wrapper">
                     
-                    <img src="../../assets/profiledefault.png" class="profile-picture">
+                    <?php
+
+                        $sqlImg = "SELECT * FROM profilka
+                        WHERE uporabnikID = $id;";
+
+                        $resultImg = mysqli_query($conn,$sqlImg);
+                        if (mysqli_num_rows($resultImg) == 0) {
+                            echo "<img src='../../assets/profiledefault.png' class='profile-picture'>";
+                        } else {
+                            $rowImg = mysqli_fetch_assoc($resultImg);
+
+                            if ($rowImg["status"] == 0) {
+                                echo "<img src='../../assets/profile".$id.".jpg' class='profile-picture'>";
+                                
+                            } else {
+                                echo "<img src='assets/profiledefault.png' class='profile-picture'>";
+                            }
+                        }
+                    ?>
                     <a class="settings" href="nastavitve.php">Nastavitve računa</a>
                 </div>
             </div>
             <div class="right">
+
+
+            <?php 
+
+            retrieveUsers($id,$conn,$ime,$priimek,$ePosta,$tel,$opis);
+
+            ?>
+
                 <div class="personal-wrapper">
-                    <p class="personal-info">Jan Sterle</p>
-                    <p class="personal-info">jan.sterle123@gmail.com</p>
-                    <p class="personal-info">070766355</p>
-                    <p class="about-info">Tvoj profil še nima opisaTvoj profil še nima opisa
-                    Tvoj profil še nima opisaTvoj profil še nima opisaTvoj profil še nima opisa
-                    </p>
+                    <p class="personal-info"><?php echo "$ime " . "$priimek" ?></p>
+                    <p class="personal-info"><?php echo $ePosta ?></p>
+                    <p class="personal-info"><?php echo $tel ?></p>
+                    <p class="about-info"><?php echo $opis ?></p>
                 </div>
             </div>
         </div>

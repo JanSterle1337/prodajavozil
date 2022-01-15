@@ -4,6 +4,11 @@ body,html {
 }
 
 
+.heading {
+    font-size: 45px;
+    color: #106dee;
+}
+
 .settings-wrapper {
     display: flex;
     flex-direction: column;
@@ -12,6 +17,13 @@ body,html {
     width: 100%;
     height: 100%;
     background: #EEEEEE;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .settings {
@@ -27,15 +39,17 @@ body,html {
 }
 
 .profilka {
-    width: 20rem;
-    height:20rem;
+    width: 15rem;
+    height:15rem;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .profilka-settings{
     display: flex;
     flex-direction: row;
     margin: 2rem;
+    margin-bottom: 1rem;
     font-size: 1.2vw;
 }
 
@@ -47,18 +61,22 @@ body,html {
 
 
 label {
-    font-size: 2vw;
+    font-size: 1.5vw;
     color: #434343;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 input {
-    width: 30vw;
-    height: 1.5vw;
+    width: 25vw;
+    height: 1.0vw;
     border: 0px;
     outline: none;
     border-radius: 20px;
-    font-size: 2vw;
+    font-size: 1.5vw;
     padding: 10px;
     text-align: center;
     color: #434343;
@@ -66,16 +84,33 @@ input {
     margin-bottom: 25px;
 }
 
+input:focus {
+    border: 3px solid #106dee;
+}
+
+
+
 textarea {
-    width: 70%;
+    width: 100%;
     height: 100px;
     outline: none;
     border: none;
     border-radius: 20px;
     padding: 15px;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     margin-top: 10px;
     margin-bottom: 20px;
+    color: #434343;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.success {
+    color: #00B2FF;
+    font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 2rem;
 }
 
 .hidden {
@@ -108,4 +143,26 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+svg {
+    width: 3rem;
+    height: 3rem;
+}
+
+@media only screen and (max-width: 1000px) {
+    .profilka {
+        width: 10rem;
+        height: 10rem;
+    }
+    .upload-file {
+        width: 90px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+    }
 }
