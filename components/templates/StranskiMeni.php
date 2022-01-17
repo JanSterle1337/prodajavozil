@@ -53,7 +53,7 @@
 
       <?php if (isset($_SESSION['id']))  { ?>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="ustvari.php" class="nav-link">
           <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg"><path d="M20,2H8C6.897,2,6,2.897,6,4v12c0,1.103,0.897,2,2,2h12c1.103,0,2-0.897,2-2V4C22,2.897,21.103,2,20,2z M8,16V4h12 l0.002,12H8z"></path><path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8zM15 6L13 6 13 9 10 9 10 11 13 11 13 14 15 14 15 11 18 11 18 9 15 9z"></path></svg>
             <span class="link-text">Ustvari</span>
           </a>
