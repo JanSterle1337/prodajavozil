@@ -3,8 +3,27 @@ body,html {
     height: 100%;
 }
 
-.create-wrapper {
+.create-ads-wrapper {
     width: 100%;
     height: 100%;
+    background: #EEEEEE;
+}
+
+.create-ads-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     
+    margin: 30px;
+}
+
+.pogon-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-selection-wrapper {
+    display: flex;
+    flex-direction: row;
 }
