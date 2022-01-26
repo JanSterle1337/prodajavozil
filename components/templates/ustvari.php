@@ -2,7 +2,12 @@
 session_start();
 require ("../../config/db_connect.php");
 
-
+if (isset($_SESSION['errorInfo'])) {
+    echo "<pre>";
+    var_dump($_SESSION['errorInfo']);
+    echo "</pre>";
+    unset($_SESSION['errorInfo']);
+}
 
 
 ?>
@@ -44,8 +49,7 @@ require ("../../config/db_connect.php");
                     <h1>Ustvari nov oglas</h1>
                         <form class="create-ads-form" action="../logic/ustvariOglas.php" enctype="multipart/form-data" METHOD="POST">
                             <div class="brand-selection-wrapper">
-                                <select id="SelectA" name="brand" onchange="my_fun(this.value);"> 
-                                    <option>Izberi znamko</option>
+                                <select id="SelectA" name="znamka" onchange="my_fun(this.value);"> 
                                 <?Php 
                                     $sqlBrand = "SELECT znamka from Znamka";
                                     $result = mysqli_query($conn,$sqlBrand);
@@ -69,7 +73,7 @@ require ("../../config/db_connect.php");
                                 </div>
 
                                 <div>
-                                    <select>  
+                                    <select name="letnik">  
                                         <?php for ($i = 2022; $i > 1971; $i--) {  
                                             echo "<option value='$i'>$i</option>";
                                             } ?>
@@ -94,11 +98,14 @@ require ("../../config/db_connect.php");
                                             
                             <div>
                                 <label for="VIN">VIN številka</label>
-                                <input type="text" id="VIN" name="VIN"/>
+                                    <input type="text" id="VIN" name="VIN"/>
                                 <label for="prevozeniKM">Prevoženi Kilometri</label>
-                                <input type="number" name="prevozeniKM" id="prevozeniKM"/>
+                                    <input type="number" name="prevozeniKM" id="prevozeniKM"/>
                                 <label>Opis vozila oz. oglasa</label>
-                                <textarea name="opisVozila" id="opisVozila"></textarea>
+                                    <textarea name="opisVozila" id="opisVozila"></textarea>
+                                <label for="cena">Cena vozila</label>
+                                    <input type="number" name="cena"/>
+                                
                             </div>
 
                             <div>

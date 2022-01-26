@@ -18,7 +18,7 @@ if (mysqli_num_rows($result)> 0) {
 
     echo "</select>";
 } else {
-    echo "<select>";
+    echo "<select name='model'>";
     echo "<option>Select Model</option>";
     echo "</select>";
 }
