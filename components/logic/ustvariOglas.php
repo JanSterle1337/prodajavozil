@@ -59,6 +59,8 @@
 
           if (gettype($photos) == "string") {
              echo  "Error pr slikah: " . $photos . "</br>";
+             $_SESSION["errorInfo"] = $queries;
+             Header("Location: ../templates/ustvari.php");
           } else {
               $validation["photos"] = true;
                  if (checkValidation($validation)) {
@@ -123,7 +125,7 @@
 
                       }
                       
-                      /*Header("Location: ../templates/ustvari.php"); */
+                      Header("Location: ../templates/domov.php");
                   } else {
                     
                       echo "Error sending data to database: " . mysqli_error($conn);
@@ -167,7 +169,7 @@
             echo $model . "<br>";
             return $model;
         } else {
-            $queries["errors"]["model"] = "model is not set <br>";
+            $queries["errors"]["model"] = "Niste izbrali modela vozila";
             echo $queries["errors"]["model"];
             $validation["model"] = false;
             return false;
@@ -193,7 +195,7 @@
           $validation["gorivo"] = true;
             return $gorivo;
         } else {
-            $queries["errors"]["gorivo"] = "gorivo is not set <br>";
+            $queries["errors"]["gorivo"] = "Izbrati morate vrsto goriva";
             echo $queries["errors"]["gorivo"];
             $validation["gorivo"] = false;
             return false;
@@ -209,7 +211,7 @@
             $validation["VIN"] = true;
             return $VIN;
         } else {
-            $queries["errors"]["VIN"] = "VIN is not set <br>";
+            $queries["errors"]["VIN"] = "Vpisati morate ustrezno število VIN";
             echo $queries["errors"]["VIN"];
             $validation["VIN"] = false;
             return false;
@@ -224,7 +226,7 @@
             $validation["prevozeniKM"] = true;
             return $prevozeniKM;
         } else {
-            $queries["errors"]["prevozeniKM"] = "Prevozeni is not set <br>";
+            $queries["errors"]["prevozeniKM"] = "Potrebno je vpisati št. prevoženih kilometrov<br>";
             echo $queries["errors"]["prevozeniKM"];
             $validation["prevozeniKM"] = false;
             return false;
@@ -241,7 +243,7 @@
             $validation["opisOglasa"] = true;
             return $opisOglasa;
         } else {
-            $queries["errors"]["opisOglasa"] = "Opis is not set <br>";
+            $queries["errors"]["opisOglasa"] = "Potrebno je ustvari opis vozila";
             
             echo $queries["errors"]["opisOglasa"];
             $validation["opisOglasa"] = false;
@@ -263,7 +265,7 @@
                 return $cena;
             } else {
               $validation['cena'] = false;
-              $queries["errors"]['cena'] = "Cena mora biti večja od 0";  
+              $queries["errors"]['cena'] = "Cena mora biti večja od 0€";  
               return false;
             }
         } else {
@@ -308,7 +310,7 @@
         foreach ($_FILES["oglasiImages"]["tmp_name"] as $tempName) {
             if (!file_exists($tempName) || !is_uploaded_file($tempName)) {
                 echo "No upload of photos";
-                $queries["errors"]["photos"] = "No files uploaded";
+                $queries["errors"]["photos"] = "Potrebno je naložiti vsaj 1 sliko vozila";
                 $validation["photos"] = false;
                 return false;
             } else {
@@ -339,6 +341,7 @@
                             $photoValidation["photo"] = true;
                             $stevec++;
                         } else {
+                            $queries["errors"]["photos"] = "Končnica slike je lahko le .jpg";
                             return "Slika $i ima napacno koncnico";
                         }
                     }
@@ -348,6 +351,7 @@
                             $photoValidation["photos"] = true;
                             $stevec++;
                         } else {
+                            $queries["errors"]["photos"] = "Napaka v sliki. Naloži drugo sliko";
                             return "Slika $i ima file error";
                         }
                     }
@@ -358,6 +362,7 @@
                             $photoValidation["photos"] = true;
                             $stevec++;
                         } else {
+                            $queries["errors"]["photos"] = "Slika ne sme presegati velikosti 5MB";
                             return "Slika $i je prevelika";
                         }
                     }
@@ -381,6 +386,7 @@
           if ($neki === 5) {
               return true;
           } else {
+              $queries["errors"]["photos"] = "Prišlo je do napake. Prosim, poskusite kasneje.";
               return "Prislo je do napake";
           }
     }
