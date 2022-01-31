@@ -3,6 +3,8 @@
 session_start();
 
 require ("../logic/profil.php");
+require ("../logic/oglas.php");
+
 
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
@@ -81,6 +83,23 @@ if (isset($_SESSION['id'])) {
                <h1 class="heading">Tvoji oglasi</h1>
             </div>
             <div class="oglas-wrapper">
+
+            <?php 
+
+            $allSellerOglasi = allSellerOglasi($conn,$id);
+            
+            while ($row = mysqli_fetch_assoc($allSellerOglasi)) {  ?>
+                <a href="oglas.php?id=<?php echo $row["oglasID"] ?>">
+                <div class="oglas">
+                    <img class="advert-photo" src="../../storage/<?php echo $row['imeSlike']; ?>">
+                    <p class="cena"><?php echo htmlspecialchars($row['cena']) ;?> €</p>
+                    <p class="ime-oglasa"><?php echo htmlspecialchars($row['znamka']) . " " . htmlspecialchars($row['model']) ;  ?> </p>
+                </div>
+                 </a>
+<?php       }   ?>
+           
+            
+               <!-- 
                 <div class="oglas">
                     <img class="advert-photo" src="../../assets/golf2.jpg">
                     <p class="cena">$ 7.200</p>
@@ -96,6 +115,8 @@ if (isset($_SESSION['id'])) {
                     <p class="cena">$ 7.200</p>
                     <p class="ime-oglasa">Golf 4 MK 2.0 Diesel</p>
                 </div>
+
+            -->
             </div>
         </div>
     </div>

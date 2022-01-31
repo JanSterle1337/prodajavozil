@@ -16,8 +16,30 @@
         }
     }
     else if (isset($_POST['ogled'])) {
-        Header("Location: ../templates/vsiOglasi.php");
-    } else {
+        if (isset($_POST['seller'])) {
+            $prodajalecID = mysqli_real_escape_string($conn,$_POST['seller']);
+            Header("Location: ../templates/vsiOglasi.php?prodajalecID=$prodajalecID");
+        }
+        
+    } else if (isset($_POST['izbrisi']))  {
+        if ($_POST['userID'] == $_POST['sellerID']) {
+            $_SESSION['sellerID'] = mysqli_real_escape_string($conn,$_POST['sellerID']);
+            $_SESSION['oglasID'] = mysqli_real_escape_string($conn,$_POST['oglasID']);
+            Header("Location: izbrisiOglas.php");
+        } else {
+            Header ("Location: izbrisiOglas.php?delete=failure");
+        }
+    } else if (isset($_POST['posodobi'])) {
+        if ($_POST['userID'] == $_POST['sellerID']) {
+            $_SESSION['sellerID'] =  mysqli_real_escape_string($conn,$_POST['sellerID']);
+            $_SESSION['oglasID'] = mysqli_real_escape_string($conn,$_POST['oglasID']);
+            Header("Location: ../templates/posodobiOglas.php");
+        } else {
+            Header("Location: ../templates/posodobiOglas.php?posodobi=failure");
+        }
+    }
+    
+    else {
         Header("Location: ../templates/domov.php");
     }
 ?>

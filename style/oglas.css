@@ -85,6 +85,14 @@
     justify-content: space-around;
 }
 
+.left {
+    width: 50%;
+}
+
+.right {
+    width: 50%;
+}
+
 .key {
     font-weight: bold;
     color: #434343;
@@ -117,4 +125,11 @@
 .redirect {
     display: flex;
     flex-direction: row;
+}
+
+.edit-delete-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
