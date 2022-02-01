@@ -6,7 +6,22 @@ require ("../logic/forum.php");
 
 
 if (isset($_SESSION['id'])) {
-    echo "prijavljen";
+    $id = mysqli_real_escape_string($conn,$_SESSION['id']);
+    if (isset($_GET['temaID'])) {
+        $temaID = mysqli_real_escape_string($conn,$_GET['temaID']);
+        if (isset($_POST['add-komentar'])) {
+            $komentar = mysqli_real_escape_string($conn,$_POST['komentar']);
+            $isKomentarOk = checkKomentar($conn,$komentar);
+            if ($isKomentarOk == true) {
+                $isInserted = insertKomentar($conn,$komentar,$id,$temaID);
+                if ($isInserted === true) {
+                    Header("Location: forum.php?temaID=$temaID");
+                } else {
+                    echo "Error napakaaaaaaaaaaa";
+                }
+            }
+        }
+    }
 } else {
     echo "Neprijavljen";
 }
@@ -24,13 +39,13 @@ if (isset($_SESSION['id'])) {
     <title>PRODAJAVOZIL | FORUM</title>
 </head>
 <body>
-    <?php require ("StranskiMeni.php"); ?>
+  <?php require ("StranskiMeni.php"); ?>
     <main>
         <div class="forum-wrapper">
 
         <div class="nova-tema-wrapper">
             <?php 
-                if (isset($_SESSION['id'])) {  ?>
+                if (isset($_SESSION['id']) && !isset($_GET['temaID'])) {  ?>
                  <form action="novaTema.php" METHOD="POST">
                     <label for="novaTema">Ustvari novo temo</label>
                     <button type="submit" name="novaTema" class="nova-tema-gumb">Nova tema</button>
@@ -54,13 +69,59 @@ if (isset($_SESSION['id'])) {
                 }
             echo "</div>";
                 ?>
-            <?php } else { ?>
-                <div class="tema-wrapper">
-                    <div class="tema">
-                        <div class="naslov"></div>
-                    </div>
+            <?php } else { 
+                echo "<div class='tema-wrapper'>";
+                $temaID = mysqli_real_escape_string($conn,$_GET['temaID']);
+
+                $temaData = getSingleTema($conn,$temaID);
+
+                if (!is_bool($temaData)) { 
+                    while ($row = mysqli_fetch_assoc($temaData)) {
+                        echo "<div class='tema'>";
+                            echo "<div class='naslov'>";
+                                echo "<div class='naslov'>";
+                                    echo "<h1>" . $row['naslov'] . "</h1>";
+                                    echo "<p>" . $row['razprava'];
+                                echo "</div>";
+                            echo "</div>";
+                    }
+
+
+                if (isset($_SESSION['id'])) {
+                    ?>
+                <div class='add-komentar-wrapper'>
+                    <form class='add-komentar-form' action="forum.php?temaID=<?php echo htmlspecialchars($temaID); ?>" method="POST">
+                        <div class="input-komentar">
+                            <label for="komentar">Dodaj nov komenentar</label>
+                            <textarea name='komentar'></textarea>
+                        </div>
+                        <div class='button-komentar'>
+                            <button type="submit" name="add-komentar">Post</button>
+                        </div>
+                    </form>
                 </div>
 
+          <?php  }  ?>
+
+                <div class="komentar-section-wrapper">
+                    <?php 
+                        $allKomentarji = allKomentarji($conn,$temaID);
+                        
+                        while ($row = mysqli_fetch_assoc($allKomentarji)) {
+                            echo "<div class='komentar'>";
+                                echo "<p>$row[opis]</p>";
+                            echo "</div>";
+                        }
+                    
+                    ?>
+                </div>
+        
+       <?php     } ?>
+
+               
+                
+                   
+                </div>  <!--  od tema-wrapper -->
           <?php } ?>
         </div>
     </main>

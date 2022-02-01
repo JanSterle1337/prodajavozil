@@ -70,4 +70,56 @@ function checkOpis($conn,$opis,&$errors) {
     }
 }
 
+
+function getSingleTema($conn,$temaID) {
+    $sql = "SELECT * FROM Tema
+            WHERE temaID = $temaID";
+
+    if ($result = mysqli_query($conn,$sql)) {
+        //echo "Ok";
+        return $result;
+    } else {
+        return false;
+    }
+}
+
+
+function checkKomentar($conn,$komentar) {
+    if (strlen($komentar) > 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function insertKomentar($conn,$komentar,$uporabnikID,$temaID) {
+    $sql = "INSERT INTO Komentar
+            (opis,uporabnikID,temaID)
+            VALUES
+            ('$komentar',$uporabnikID,$temaID)";
+
+    if (mysqli_query($conn,$sql)) {
+        echo "Dela query";
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+       return false;
+    }
+}
+
+function allKomentarji($conn,$temaID) {
+    $sql = "SELECT *
+            FROM Komentar
+            WHERE
+                (temaID = $temaID)";
+
+    if ($result = mysqli_query($conn,$sql)) {
+        return $result;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false;
+    }
+}
+
 ?>
