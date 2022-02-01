@@ -1,0 +1,34 @@
+.forum-wrapper {
+    background: #eeee;
+}
+
+.nova-tema-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.tema-wrapper {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    width: 80%;
+    color: rgba(99, 99, 99, 0.933);
+}
+
+.right {
+    width: 20%;
+    color: rgba(99, 99, 99, 0.933);
+}
+
+a {
+    text-decoration: none;
+
+}

@@ -64,13 +64,14 @@
                 $prevozeniKm = $row['prevozeniKm'];
                 $cena = $row['cena'];
                 $uporabnikID = $row['uporabnikID'];
+                $voziloID = $row['voziloID'];
             }
                 
                 ?>
                 <main>
                     <div class="create-ads-wrapper">
                     <h1>Posodobi svoj oglas</h1>
-                        <form class="create-ads-form" action="../logic/ustvariOglas.php" enctype="multipart/form-data" METHOD="POST">
+                        <form class="create-ads-form" action="../logic/posodobiOglas.php" enctype="multipart/form-data" METHOD="POST">
                             <h2>Osnovni podatki o vozilu</h2>
                                 <div class="brand-selection-wrapper">
                                     <select id="SelectA" name="znamka" onchange="my_fun(this.value);"> 
@@ -102,6 +103,7 @@
 
                                     <div>
                                         <select name="letnik" id="SelectA">  
+                                        <option value="<?php echo htmlspecialchars($letnik); ?>" selected='selected'><?Php echo htmlspecialchars($letnik); ?></option>
                                             <?php for ($i = 2022; $i > 1971; $i--) {  
                                                 echo "<option value='$i'>$i</option>";
                                                 } ?>
@@ -110,6 +112,27 @@
                                 </div>
                             <div class="pogon-wrapper">
                                 <h2>Izberi gorivo</h2>
+
+                                <?php 
+                                    $arrGoriv = array (
+                                        "bencin","diesel", "hibrid", "e-pogon","LPG avtoplin","zemeljski plin"
+                                    );
+
+                                    for ($i = 0; $i < count($arrGoriv); $i++) {
+                                        if ($arrGoriv[$i] == $pogon) {
+                                            echo "<div class='flex'>";
+                                            echo "<label for='$arrGoriv[$i]' class='gorivo-label'>$arrGoriv[$i]</label>";
+                                            echo "<input type='radio' name='gorivo' id='$arrGoriv[$i]' value='$arrGoriv[$i]' class='gorivo-input' checked>";
+                                            echo "</div>";
+                                        } else {
+                                            echo "<div class='flex'>";
+                                            echo "<label for='$arrGoriv[$i]' class='gorivo-label'>$arrGoriv[$i]</label>";
+                                            echo "<input type='radio' name='gorivo' id='$arrGoriv[$i]' value='$arrGoriv[$i]' class='gorivo-input'>";
+                                            echo "</div>";
+                                        }
+                                    }
+                                ?>
+                                    <!--
                                     <div class="flex">
                                         <label for="bencin" class="gorivo-label">bencin</label>
                                             <input type="radio" name="gorivo" id="bencin" value="bencin" class="gorivo-input">
@@ -134,9 +157,9 @@
                                         <label for="CNG" class="gorivo-label">zemeljski plin</label>
                                             <input type="radio" name="gorivo" id="CNG"  value="zemeljski plin" class="gorivo-input">
                                     </div>
-                                
+                                -->
                             </div>
-                                            
+                                             
                             <div class="top-bottom-wrapper">
                                <div class="top"> 
                                 <label for="VIN" class="data-label">VIN številka</label>
@@ -154,7 +177,9 @@
                             </div>
 
                             <div class="submit-wrapper">
-                                <button type="submit" name="submit" class="ustvari">Ustvari oglas</button>
+                                <input type="hidden" name="voziloID" value="<?php echo htmlspecialchars($voziloID) ?>" />
+                                <input type="hidden" name="oglasID" value="<?php echo htmlspecialchars($oglasID) ?>"/>
+                                <button type="submit" name="posodobi" class="ustvari">Posodobi oglas</button>
                             </div>
                             
                                             

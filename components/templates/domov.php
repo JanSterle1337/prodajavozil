@@ -126,7 +126,7 @@
                 <option value="bencin">bencin</option>
                 <option value="diesel">diesel</option>
                 <option value="e-pogon">e-pogon</option>
-                <option value="hibridni pogon">hibridni pogon</option>
+                <option value="hibrid">hibridni pogon</option>
                 <option value="LPG avtoplin">LPG avtoplin</option>
                 <option value="zemeljski plin">zemeljski plin</option>
               </select>

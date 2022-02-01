@@ -8,6 +8,7 @@ function getOglasInfo($conn,$oglasID) {
             og.created_at,
             og.znamka,
             og.model,
+            voz.voziloID,
             voz.VIN,
             voz.pogon,
             voz.letnik,

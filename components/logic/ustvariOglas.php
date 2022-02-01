@@ -36,7 +36,7 @@
 
     if (isset($_SESSION['id'])) {
         $id = $_SESSION['id'];
-
+        
         if (isset($_POST['submit'])) {
             
            $brand = isBrandSet($conn,$queries,$validation); 
