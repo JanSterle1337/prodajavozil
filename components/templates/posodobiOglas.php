@@ -49,9 +49,9 @@
             $oglasData = getOglasInfo($conn,$oglasID);
 
             while ($row = mysqli_fetch_assoc($oglasData)) {
-                echo "<pre style='margin-left: 100px;'>";
+               /* echo "<pre style='margin-left: 100px;'>";
                 var_dump($row);
-                echo "</pre>";
+                echo "</pre>"; */
                 $oglasID = $row['oglasID'];
                 $opis = $row['opis'];
                 $status = $row['status'];

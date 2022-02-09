@@ -5,7 +5,7 @@
 
     if (isset($_GET['id'])) {
         $oglasID = mysqli_real_escape_string($conn,$_GET['id']);
-        echo "ok";
+      
     } else {
         Header("Location: domov.php");
     }
@@ -51,12 +51,15 @@
             //echo json_encode($photoNameArr);
 
             if (isset($_SESSION['id']) && $_SESSION['id'] == $sellerID) { ?>
+            
             <div class="oglas-wrapper">
                 <div class="gallery-wrapper" id="gallery-wrap">
                 <div class="heading">
                     <h1>Oglas</h1>
                 </div>
-                <div class="gallery"></div>
+                <div class="gallery">
+                <!--  <img class nekineki> -->
+                </div>
                 <div class="oglas-info">
                     <div class="button-wrapper"></div>
                     <div class="info">
@@ -132,9 +135,7 @@
 
         <div class="oglas-wrapper">
             <div class="gallery-wrapper" id="gallery-wrap">
-                <div class="heading">
-                    <h1>Oglas</h1>
-                </div>
+                
                 <div class="gallery"></div>
                 <div class="oglas-info">
                     <div class="button-wrapper"></div>
@@ -274,6 +275,8 @@
 
 
         let gallery = document.getElementsByClassName("gallery")[0];
+        
+
        // gallery.className="gallery";
         for(let i = 0; i < data.length; i++) {
             let img = document.createElement("img");
@@ -281,12 +284,28 @@
             img.id = "photo" + i;
             img.src = "../../storage/" + data[i];
            // console.log(img);
+            /*let imgBackground = document.createElement("img");
+            imgBackground.className = "background-photo";
+            imgBackground.src = img.src; 
+            gallery.appendChild(imgBackground); */
             gallery.appendChild(img);
            // console.log(img);
 
+           
+            
         
             if (i > 0) {
                 img.style.display="none";
+            } else {
+
+                
+
+                /*
+                gallery.style.backgroundImage = 'url(' + img.src + ')';
+                gallery.style.backgroundSize = "cover";
+                gallery.style.filter = "blur(" + 8 + "px)"; */
+
+
             }
 
         }
@@ -300,6 +319,7 @@
 
 
         buttonForw.addEventListener("click", function () {
+
             for (let i = 0; i < nodeList.length; i++) {
                 //console.log(nodeList[i].id);
                 if (nodeList[i].style.display != "none" && (i + 1) < nodeList.length) {
@@ -312,6 +332,7 @@
                     break;
                 }
             }
+            console.log(gallery.offsetHeight);
         });
 
         let buttonBack = document.createElement("button");

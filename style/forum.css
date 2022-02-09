@@ -1,5 +1,21 @@
 .forum-wrapper {
-    background: #eeee;
+    /*background: #eeee; */
+
+}
+
+.header-team-wrapper {
+    display: flex;
+    flex-direction: row;
+    background: #106dee;
+    border-left: 3px solid black;
+}
+
+.nova-tema-wrapper {
+    
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .nova-tema-form {
@@ -35,4 +51,14 @@ a {
 
 .komentar-section-wrapper {
     background: white;
+}
+
+.search-form-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.komentar {
+    background: lightskyblue;
+    margin-bottom: 30px;
 }

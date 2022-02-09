@@ -121,7 +121,9 @@ if (isset($_SESSION['id'])) {
         </div>
     </div>
 
-<?php    } ?>
+<?php    }  else {
+    echo "Prosim, prijavi se ali pa ustvari nov račun.";
+}?>
 
 
     

@@ -69,13 +69,16 @@
                              oglasID = $oglasID";
 
                 if (mysqli_query($conn,$sqlOglas)) {
+                    Header("Location: ../templates/domov.php");
                     echo "Oglas posodobljen";
                 } else {
+                    Header("Location: ../templates/posodobiOglas.php");
                     echo "Error oglas: " . mysqli_error($conn);
                 }
 
             } else {
                 echo "Error vozilo: " . mysqli_error($conn);
+                Header("Location: ../templates/posodobiOglas.php");
             }
 
            }

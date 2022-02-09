@@ -72,8 +72,9 @@ function checkOpis($conn,$opis,&$errors) {
 
 
 function getSingleTema($conn,$temaID) {
-    $sql = "SELECT * FROM Tema
-            WHERE temaID = $temaID";
+    $sql = "SELECT te.temaID,te.naslov,te.razprava,te.uporabnikID,upo.ime,upo.priimek FROM Tema te
+            INNER JOIN Uporabnik upo ON (upo.uporabnikID = te.uporabnikID)
+            WHERE te.temaID = $temaID";
 
     if ($result = mysqli_query($conn,$sql)) {
         //echo "Ok";
@@ -122,4 +123,76 @@ function allKomentarji($conn,$temaID) {
     }
 }
 
+
+
+function numberOfReplys($conn,$komentarID,$nestedLvl = 1) {
+    $sql = "SELECT
+            COUNT(odg.odgovorID) AS stReplyov,
+            kom.komentarID
+            FROM Odgovor odg
+                INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
+            WHERE odg.nested_level = '$nestedLvl' AND kom.komentarID = '$komentarID'
+                GROUP BY kom.komentarID
+            HAVING stReplyov > 0";
+
+    if ($result = mysqli_query($conn,$sql)) {
+        return $result;
+       
+    } else {
+        return false;
+        echo "Error: " . mysqli_error($conn);
+    }
+
+}
+
+function retrieveKomentarReplys($conn,$komentarID,$nestedLvl = 1) {
+    $sql = "SELECT
+            odg.opis AS reply,
+            odg.nested_level,
+            odg.odgovorjenID,
+            odg.odgovorID,
+            upo.ime,
+            upo.priimek,
+            kom.komentarID
+            FROM odgovor odg
+                INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
+                INNER JOIN Uporabnik upo ON (upo.uporabnikID = odg.uporabnikID)
+            WHERE 
+                odg.nested_level = '$nestedLvl' AND
+                kom.komentarID = '$komentarID'";
+    
+    if ($result = mysqli_query($conn,$sql)) {
+        return $result;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+    
+
+/*    return $result; */
+}
+
+
+function retrieveReplyReplys($conn,$komentarID,$odgovorjenID,$nestedLvl = 1) {
+    $sql = "SELECT
+            odg.opis AS reply,
+            odg.nested_level,
+            odg.odgovorjenID,
+            odg.odgovorID,
+            upo.ime,
+            upo.priimek,
+            kom.komentarID
+            FROM odgovor odg
+                INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
+                INNER JOIN Uporabnik upo ON (upo.uporabnikID = odg.uporabnikID)
+            WHERE 
+                odg.nested_level = '$nestedLvl' AND
+                kom.komentarID = '$komentarID' AND
+                odg.odgovorjenID = '$odgovorjenID'";
+
+    if ($result = mysqli_query($conn,$sql)) {
+        return $result;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+}
 ?>

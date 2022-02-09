@@ -41,20 +41,35 @@ if (isset($_SESSION['id'])) {
 <body>
   <?php require ("StranskiMeni.php"); ?>
     <main>
+
+
         <div class="forum-wrapper">
+            <div class="header-team-wrapper">
+                <div class="nova-tema-wrapper">
+                    <?php  //ce je uporabnik prijavljen in je nastavljen pogled na vse teme
+                        if (isset($_SESSION['id']) && !isset($_GET['temaID'])) {  ?>
+                        <form action="novaTema.php" METHOD="POST">
+                            <label for="novaTema">Ustvari novo temo</label>
+                            <button type="submit" name="novaTema" class="nova-tema-gumb">Nova tema</button>
+                        </form>  
+                <?Php }  ?>
+                    
+                </div>
 
-        <div class="nova-tema-wrapper">
-            <?php 
-                if (isset($_SESSION['id']) && !isset($_GET['temaID'])) {  ?>
-                 <form action="novaTema.php" METHOD="POST">
-                    <label for="novaTema">Ustvari novo temo</label>
-                    <button type="submit" name="novaTema" class="nova-tema-gumb">Nova tema</button>
-                 </form>  
-           <?Php }  ?>
-            
-        </div>
+                <div  class="search-tema-wrapper">
+                    <form action="search.php" METHOD="POST" class="search-form-wrapper">
+                    <div>
+                        <input type="text" name="search-tema"/>
+                    </div>
+                    <div>
+                        <button type="submit"  name="submit-search">Išči</button>
+                    </div>
+                    </form>
+                        
+                </div>
+            </div>
 
-        <div class="teme-wrapper">
+            <div class="teme-wrapper">
         <?php if (!isset($_GET['temaID'])) { 
             echo "<div class='teme-wrapper'>";
                 $allTeme = getAllTeme($conn);
@@ -82,6 +97,7 @@ if (isset($_SESSION['id'])) {
                                 echo "<div class='naslov'>";
                                     echo "<h1>" . $row['naslov'] . "</h1>";
                                     echo "<p>" . $row['razprava'];
+                                    echo "<p>" . "Temo ustvaril: " . $row['ime'] . " " . $row['priimek'] . "</p>";
                                 echo "</div>";
                             echo "</div>";
                     }
@@ -107,23 +123,75 @@ if (isset($_SESSION['id'])) {
                     <?php 
                         $allKomentarji = allKomentarji($conn,$temaID);
                         
+                        $nestedLvlStevec = 1;
                         while ($row = mysqli_fetch_assoc($allKomentarji)) {
+                            $komentarID = $row['komentarID'];
+                            $allKomentReplies = numberOfReplys($conn,$komentarID);
+                            /*echo "<pre>";
+                            var_dump($row);
+                            echo "</pre>"; */
                             echo "<div class='komentar'>";
-                                echo "<p>$row[opis]</p>";
-                            echo "</div>";
-                        }
-                    
-                    ?>
-                </div>
-        
-       <?php     } ?>
+                                echo "<p>$row[opis]</p>"; 
+                                echo "ID komentarja je: " . $komentarID;
 
+
+                            $numberOfReplies = mysqli_fetch_all($allKomentReplies,MYSQLI_ASSOC);
+                            /*echo "<pre>";
+                            var_dump($numberOfReplies);
+                            echo "</pre>"; 
+                            */
+                            if (!empty($numberOfReplies)) {
+
+                                if ($numberOfReplies === 1) { ?>
+                                    <button onclick="showReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars(1); ?>)">Prikaži <?php echo htmlspecialchars($numberOfReplies[0]['stReplyov']); ?> odgovor</button>
+                                    <div id="<?php echo "reply" . htmlspecialchars($komentarID) ?>">
+                                
+                                    </div>
+                <?php           } else { ?>
+                                    <button onclick="showReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars(1); ?>)">Prikaži <?php echo htmlspecialchars($numberOfReplies[0]['stReplyov']); ?> odgovor</button>
+                                    <div id="<?php echo "reply" . htmlspecialchars($komentarID) ?>">
+                                
+                                    </div>
+            <?php              }
+                            }    
+                              echo "</div>";
+                            }?>
+                        
+                        
+                           </div>
+                            
+                    
                
-                
-                   
-                </div>  <!--  od tema-wrapper -->
+        
+       <?php     } ?>      
+            </div>  <!--  od tema-wrapper -->
           <?php } ?>
         </div>
     </main>
+<script src="../../scripts/displayReplies.js">
+
+    /*
+    function showReplies(komenterID,nestedLvl) {
+
+        let replyDivs = document.getElem
+            console.log("showReplies");
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("reply" + komenterID).innerHTML = this.responseText;
+                    console.log(this.responseText);
+                } else {
+                    console.log("Neki ne dela");
+                }
+            }
+            xmlhttp.open("GET", "../logic/pridobiOdgovore.php?komentarID="+komenterID+"&nestedLvl="+nestedLvl,true);
+            xmlhttp.send();
+    } */
+</script>
 </body>
 </html>
