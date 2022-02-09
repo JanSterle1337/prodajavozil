@@ -61,4 +61,9 @@ a {
 .komentar {
     background: lightskyblue;
     margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+.reply {
+    margin-left: 20px;
 }

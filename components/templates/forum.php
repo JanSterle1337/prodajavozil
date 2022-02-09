@@ -103,19 +103,19 @@ if (isset($_SESSION['id'])) {
                     }
 
 
-                if (isset($_SESSION['id'])) {
-                    ?>
-                <div class='add-komentar-wrapper'>
-                    <form class='add-komentar-form' action="forum.php?temaID=<?php echo htmlspecialchars($temaID); ?>" method="POST">
-                        <div class="input-komentar">
-                            <label for="komentar">Dodaj nov komenentar</label>
-                            <textarea name='komentar'></textarea>
-                        </div>
-                        <div class='button-komentar'>
-                            <button type="submit" name="add-komentar">Post</button>
-                        </div>
-                    </form>
-                </div>
+                    if (isset($_SESSION['id'])) {
+                        ?>
+                    <div class='add-komentar-wrapper'>
+                        <form class='add-komentar-form' action="forum.php?temaID=<?php echo htmlspecialchars($temaID); ?>" method="POST">
+                            <div class="input-komentar">
+                                <label for="komentar">Dodaj nov komenentar</label>
+                                <textarea name='komentar'></textarea>
+                            </div>
+                            <div class='button-komentar'>
+                                <button type="submit" name="add-komentar">Post</button>
+                            </div>
+                        </form>
+                    </div>
 
           <?php  }  ?>
 
@@ -123,47 +123,25 @@ if (isset($_SESSION['id'])) {
                     <?php 
                         $allKomentarji = allKomentarji($conn,$temaID);
                         
-                        $nestedLvlStevec = 1;
-                        while ($row = mysqli_fetch_assoc($allKomentarji)) {
-                            $komentarID = $row['komentarID'];
-                            $allKomentReplies = numberOfReplys($conn,$komentarID);
-                            /*echo "<pre>";
-                            var_dump($row);
-                            echo "</pre>"; */
-                            echo "<div class='komentar'>";
-                                echo "<p>$row[opis]</p>"; 
-                                echo "ID komentarja je: " . $komentarID;
+                        $nestedLvlStevec = 1; 
+                       
+                        while ($rowKomentar = mysqli_fetch_assoc($allKomentarji)) {
+                            $komentarID = $rowKomentar['komentarID'];
+                            $komentarOpis = $rowKomentar['opis'];
 
 
-                            $numberOfReplies = mysqli_fetch_all($allKomentReplies,MYSQLI_ASSOC);
-                            /*echo "<pre>";
-                            var_dump($numberOfReplies);
-                            echo "</pre>"; 
-                            */
-                            if (!empty($numberOfReplies)) {
-
-                                if ($numberOfReplies === 1) { ?>
-                                    <button onclick="showReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars(1); ?>)">Prikaži <?php echo htmlspecialchars($numberOfReplies[0]['stReplyov']); ?> odgovor</button>
-                                    <div id="<?php echo "reply" . htmlspecialchars($komentarID) ?>">
-                                
-                                    </div>
-                <?php           } else { ?>
-                                    <button onclick="showReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars(1); ?>)">Prikaži <?php echo htmlspecialchars($numberOfReplies[0]['stReplyov']); ?> odgovor</button>
-                                    <div id="<?php echo "reply" . htmlspecialchars($komentarID) ?>">
-                                
-                                    </div>
-            <?php              }
-                            }    
-                              echo "</div>";
-                            }?>
+                            echo "<pre>";
+                            var_dump($rowKomentar);
+                            echo "</pre>";
+                            echo "<div class='komentar' id='komentar$komentarID'>";
+                            echo "<p>$komentarOpis</p>";
+                            echo "<button onclick=showReplies($komentarID,1)>Prikazi odgovor</button>";
+                            echo "</div>";
+                        }
                         
-                        
-                           </div>
-                            
-                    
-               
-        
-       <?php     } ?>      
+                           
+                        ?>
+       <?php     }  //!isbool($temaData) ?>      
             </div>  <!--  od tema-wrapper -->
           <?php } ?>
         </div>

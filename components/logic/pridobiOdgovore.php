@@ -9,22 +9,23 @@ if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl']) && isset($_GET["odgo
     $odgovorjenID = mysqli_real_escape_string($conn,$_GET['odgovorjenID']);
 
     $result = retrieveReplyReplys($conn,$komentarID,$odgovorjenID,$nestedLvl);
-
+    $nestedLvl++;
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
-            $nestedLvl++;
+            $replyID = $rows["odgovorID"];
+          
             $countedReplies = numberOfReplys($conn,$komentarID,$nestedLvl);
             
             $numberOfReplies = mysqli_fetch_all($countedReplies,MYSQLI_ASSOC);
 
 
-            echo "<div class='reply'><p>$rows[reply]</p></div>";
+            echo "<div class='reply' id='reply$replyID'><p>$rows[reply]</p></div>";
 
             
             if (!empty($numberOfReplies)) { 
                 //echo "There are some replies over here!!! </br>"; ?>
-                <button onclick="showReplyReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars($nestedLvl); echo ','; echo  htmlspecialchars($rows['odgovorID']); ?>)">Prikaži odgovor</button>
-<?php           }
+                <button style="background: yellow; margin-bottom: 30px;" onclick="showReplyReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars($nestedLvl); echo ','; echo  htmlspecialchars($rows['odgovorID']); ?>)">Prikaži odgovor</button>
+<?php       }
         }
     }   
 }
@@ -47,21 +48,22 @@ else if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl'])) {
     $result = retrieveKomentarReplys($conn,$komentarID,$nestedLvl);
         
     //$result = mysqli_query($conn,$sql);
-
+    $nestedLvl++;
     if (mysqli_num_rows($result) > 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
-            $nestedLvl++;
+            $replyID = $rows['odgovorID'];
+            
             $countedReplies = numberOfReplys($conn,$komentarID,$nestedLvl);
             
             $numberOfReplies = mysqli_fetch_all($countedReplies,MYSQLI_ASSOC);
 
 
-            echo "<div class='reply'><p>$rows[reply]</p></div>";
+            echo "<div class='reply' id='reply$replyID'><p>$rows[reply]</p></div>";
 
             
             if (!empty($numberOfReplies)) { 
                 //echo "There are some replies over here!!! </br>"; ?>
-                <button onclick="showReplyReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars($nestedLvl); echo ','; echo  htmlspecialchars($rows['odgovorID']); ?>)">Prikaži odgovor</button>
+                <button style='background: lightgreen;' onclick="showReplyReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars($nestedLvl); echo ','; echo  htmlspecialchars($rows['odgovorID']); ?>)">Prikaži odgovor</button>
 <?php           }
         }
         
