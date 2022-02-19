@@ -3,6 +3,16 @@
 
 }
 
+.tema {
+    width: 100%;
+}
+
+.comment-header-wrapper {
+    background: pink;
+    display: flex;
+    flex-direction: row;
+}
+
 .header-team-wrapper {
     display: flex;
     flex-direction: row;
@@ -51,6 +61,7 @@ a {
 
 .komentar-section-wrapper {
     background: white;
+    width: 100%;
 }
 
 .search-form-wrapper {
@@ -66,4 +77,52 @@ a {
 
 .reply {
     margin-left: 20px;
+}
+
+.profile-picture {
+    width: 5rem;
+    height:5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.all-comment-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.person-data-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content:left;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.komentar-text-wrapper {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.line-wrapper {
+    background: lightseagreen;
+    width: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: right;
+}
+
+.line {
+    width: 50%;
+    height: 100%;
+    align-self:flex-end;
+    border-left: 4px solid gray;
+    border-bottom-left-radius: 20px;
+    
+}
+
+.first-last-name-para {
+    font-size: 20px;
 }

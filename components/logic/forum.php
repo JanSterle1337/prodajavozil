@@ -110,8 +110,18 @@ function insertKomentar($conn,$komentar,$uporabnikID,$temaID) {
 }
 
 function allKomentarji($conn,$temaID) {
-    $sql = "SELECT *
-            FROM Komentar
+    $sql = "SELECT 
+            ko.komentarID,
+            ko.opis,
+            upo.uporabnikID,
+            upo.ime,
+            upo.priimek,
+            ko.temaID,
+            ko.created_at,
+            profilka.profilkaID
+            FROM Komentar ko
+                INNER JOIN Uporabnik upo ON (upo.uporabnikID = ko.uporabnikID)
+                LEFT JOIN profilka ON (profilka.uporabnikID = upo.uporabnikID)
             WHERE
                 (temaID = $temaID)";
 
@@ -195,4 +205,29 @@ function retrieveReplyReplys($conn,$komentarID,$odgovorjenID,$nestedLvl = 1) {
         echo "Error: " . mysqli_error($conn);
     }
 }
+
+function formatDate($komentarID,$conn) {
+   $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                FROM Komentar
+            WHERE komentarID = '$komentarID'";
+    
+    $result = mysqli_query($conn,$sql);
+    $data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    $dateSeconds = $data[0]['seconds'];
+
+    $sql2 = "SELECT UNIX_TIMESTAMP(NOW()) as current_seconds";
+    if ($result2 = mysqli_query($conn,$sql2)) {
+        $data2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+        $dateNow = $data2[0]['current_seconds'];
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+    
+    $seconds = $dateNow - $dateSeconds;
+    
+    return $seconds;
+}
+
 ?>
+
+

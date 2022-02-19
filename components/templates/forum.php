@@ -128,14 +128,55 @@ if (isset($_SESSION['id'])) {
                         while ($rowKomentar = mysqli_fetch_assoc($allKomentarji)) {
                             $komentarID = $rowKomentar['komentarID'];
                             $komentarOpis = $rowKomentar['opis'];
+                            $komentarUstvarjen = $rowKomentar['created_at'];
 
-
+                            $seconds = formatDate($komentarID,$conn);
                             echo "<pre>";
-                            var_dump($rowKomentar);
+                            echo "Seconds: ";
+                            var_dump($seconds);
                             echo "</pre>";
-                            echo "<div class='komentar' id='komentar$komentarID'>";
-                            echo "<p>$komentarOpis</p>";
-                            echo "<button onclick=showReplies($komentarID,1)>Prikazi odgovor</button>";
+
+                            echo "<div>";
+                                echo "<pre>";
+                                var_dump($rowKomentar);
+                                echo "</pre>";
+                                echo "<div class='all-comment-wrapper'>";
+                                    echo "<div class='comment-header-wrapper'>";
+                                        echo "<div class='profile-pic-wrapper'>";
+                                            if ($rowKomentar['profilkaID'] == NULL) {
+                                                echo "<img src='../../assets/profiledefault.png' class='profile-picture'>";
+                                            } else {
+                                                echo "<img src='../../assets/profile$rowKomentar[uporabnikID].jpg' class='profile-picture'>";
+                                            }
+                                        echo "</div>";
+
+                                        echo "<div class='person-data-wrapper'>";
+                                            echo "<p class='first-last-name-para'>$rowKomentar[ime]  $rowKomentar[priimek]</p>";
+                                            echo "<p class='date-para'></p>";
+                                        echo "</div>";
+                                    echo "</div>";
+
+                                    echo "<div class='komentar-text-wrapper'>";
+
+                                        echo "<div class='line-wrapper'>";
+                                            echo "<div class='line'></div>";
+                                        echo "</div>";
+
+                                        echo "<div class='komentar' id='komentar$komentarID'>";
+                                        echo "<p>$komentarOpis</p>";
+                                            echo "<div style='display: flex;'>";
+                                                echo "<button onclick=showReplies($komentarID,1)>";
+                                                    echo "<svg stroke='currentColor' fill='currentColor' stroke-width='0' viewBox='0 0 24 24' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'><path d='M12,9c-1.642,0-3,1.359-3,3c0,1.642,1.358,3,3,3c1.641,0,3-1.358,3-3C15,10.359,13.641,9,12,9z'></path><path d='M12,5c-7.633,0-9.927,6.617-9.948,6.684L1.946,12l0.105,0.316C2.073,12.383,4.367,19,12,19s9.927-6.617,9.948-6.684 L22.054,12l-0.105-0.316C21.927,11.617,19.633,5,12,5z M12,17c-5.351,0-7.424-3.846-7.926-5C4.578,10.842,6.652,7,12,7 c5.351,0,7.424,3.846,7.926,5C19.422,13.158,17.348,17,12,17z'></path></svg>";
+                                                echo "</button>";
+                                                echo "<form method='POST' action='../logic/reply.php'>";
+                                                    echo "<input type='text' name='replyComment' placeholder='odgovori'/>";
+                                                    echo "<input type='hidden' name='replyingTo' value='$komentarID'>";
+                                                    echo "<button type='submit' name='posljiKomentar'>Odgovori</button>";
+                                                echo "</form>";
+                                            echo "</div>";
+                                        echo "</div>";
+                                    echo "</div>";
+                                echo "</div>"; //wrapper for the whole comment
                             echo "</div>";
                         }
                         
