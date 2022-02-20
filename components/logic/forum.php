@@ -138,7 +138,8 @@ function allKomentarji($conn,$temaID) {
 function numberOfReplys($conn,$komentarID,$nestedLvl = 1) {
     $sql = "SELECT
             COUNT(odg.odgovorID) AS stReplyov,
-            kom.komentarID
+            kom.komentarID,
+            '$nestedLvl'
             FROM Odgovor odg
                 INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
             WHERE odg.nested_level = '$nestedLvl' AND kom.komentarID = '$komentarID'
@@ -155,6 +156,30 @@ function numberOfReplys($conn,$komentarID,$nestedLvl = 1) {
 
 }
 
+function numberOfReplyReplies($conn,$komentarID,$odgovorID,$nestedLvl = 1) {
+    $sql = "SELECT
+            COUNT(odg.odgovorID) AS stReplyov,
+            kom.komentarID,
+            '$nestedLvl'
+            FROM Odgovor odg
+                INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
+            WHERE odg.nested_level = '$nestedLvl' AND kom.komentarID = '$komentarID' AND odg.odgovorjenID = '$odgovorID'
+                GROUP BY kom.komentarID
+            HAVING stReplyov > 0";
+
+    if ($result = mysqli_query($conn,$sql)) {
+        return $result;
+       
+    } else {
+        return false;
+        echo "Error: " . mysqli_error($conn);
+    }
+
+}
+
+
+
+
 function retrieveKomentarReplys($conn,$komentarID,$nestedLvl = 1) {
     $sql = "SELECT
             odg.opis AS reply,
@@ -163,10 +188,14 @@ function retrieveKomentarReplys($conn,$komentarID,$nestedLvl = 1) {
             odg.odgovorID,
             upo.ime,
             upo.priimek,
-            kom.komentarID
+            upo.uporabnikID,
+            kom.komentarID,
+            profilka.profilkaID
             FROM odgovor odg
                 INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
                 INNER JOIN Uporabnik upo ON (upo.uporabnikID = odg.uporabnikID)
+                LEFT JOIN profilka ON (profilka.uporabnikID = upo.uporabnikID)
+
             WHERE 
                 odg.nested_level = '$nestedLvl' AND
                 kom.komentarID = '$komentarID'";
@@ -188,12 +217,15 @@ function retrieveReplyReplys($conn,$komentarID,$odgovorjenID,$nestedLvl = 1) {
             odg.nested_level,
             odg.odgovorjenID,
             odg.odgovorID,
+            odg.created_at,
             upo.ime,
             upo.priimek,
-            kom.komentarID
+            kom.komentarID,
+            profilka.profilkaID
             FROM odgovor odg
                 INNER JOIN komentar kom ON (kom.komentarID = odg.komentarID)
                 INNER JOIN Uporabnik upo ON (upo.uporabnikID = odg.uporabnikID)
+                LEFT JOIN Profilka ON (profilka.uporabnikID = upo.uporabnikID)
             WHERE 
                 odg.nested_level = '$nestedLvl' AND
                 kom.komentarID = '$komentarID' AND
@@ -206,10 +238,19 @@ function retrieveReplyReplys($conn,$komentarID,$odgovorjenID,$nestedLvl = 1) {
     }
 }
 
-function formatDate($komentarID,$conn) {
-   $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+function formatDate($komentarID,$conn,$isKomentar) {
+
+
+   if ($isKomentar === true) {
+    $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
                 FROM Komentar
             WHERE komentarID = '$komentarID'";
+   } else {
+    $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                FROM Odgovor
+            WHERE odgovorID = '$komentarID'";
+   }
+   
     
     $result = mysqli_query($conn,$sql);
     $data = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -226,6 +267,49 @@ function formatDate($komentarID,$conn) {
     $seconds = $dateNow - $dateSeconds;
     
     return $seconds;
+}
+
+
+function secondsToTime($inputSeconds) {
+
+    if (empty($inputSeconds)) {
+        return 0;
+    }
+
+    $secondsInMinute = 60;
+    $secondsInAnHour = 60 * $secondsInMinute;
+    $secondsInADay = 24 * $secondsInAnHour;
+
+    $days = floor($inputSeconds / $secondsInADay); //extract days
+
+
+    $hourSeconds = $inputSeconds % $secondsInADay;  //extract hours
+    $hours = floor($hourSeconds / $secondsInAnHour);
+
+    
+    $minuteSeconds = $hourSeconds % $secondsInAnHour;   //extract minutes
+    $minutes = floor($minuteSeconds / $secondsInMinute);
+
+
+    $remainingSeconds = $minuteSeconds % $secondsInMinute; //extract the remaining seconds
+    $seconds = ceil($remainingSeconds);
+
+
+    $timeParts = [];        //store the data in array format
+    $sections = [
+        'dni' => (int)$days,
+        'ur' => (int)$hours,
+        'minut' => (int)$minutes,
+        'sekund' => (int)$seconds
+    ];
+
+    /*echo "<pre>";
+    var_dump($sections);
+    echo "</pre>"; */
+
+    return $sections;
+
+
 }
 
 ?>

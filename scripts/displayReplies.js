@@ -82,12 +82,16 @@ function showReplyReplies(komentarID,nestedLvl,odgovorjenID) {
     console.log("Pod reply funkcija laufa");
 
     let concatenatedString = "reply" + odgovorjenID;
+    let concatenatedString2 = "reply-and-buttons-wrapper" + odgovorjenID;
 
     let replyWrapper = document.createElement("div");
     replyWrapper.id = "replies-wrapper"+odgovorjenID+"nest"+nestedLvl;
-    let specificReply = document.getElementById(concatenatedString);
-    console.log(specificReply);
-    specificReply.appendChild(replyWrapper);
+   
+    /*let specificReply = document.getElementById(concatenatedString); */
+    let specificReply2 = document.getElementsByClassName(concatenatedString2)[0];
+    /*console.log(specificReply); */
+    /*specificReply.appendChild(replyWrapper); */
+    specificReply2.appendChild(replyWrapper);
 
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();

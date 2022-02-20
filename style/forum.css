@@ -8,9 +8,10 @@
 }
 
 .comment-header-wrapper {
-    background: pink;
+    /*background: pink; */
     display: flex;
     flex-direction: row;
+    height: 5rem;
 }
 
 .header-team-wrapper {
@@ -70,13 +71,15 @@ a {
 }
 
 .komentar {
-    background: lightskyblue;
+  /*  background: lightskyblue; */
     margin-bottom: 30px;
-    margin-left: 10px;
+    padding-left: 10px;
+    width: 100%;
 }
 
 .reply {
-    margin-left: 20px;
+   /* margin-left: 20px; */
+   margin-top: 10px;
 }
 
 .profile-picture {
@@ -84,29 +87,41 @@ a {
     height:5rem;
     border-radius: 50%;
     object-fit: cover;
+    
+}
+
+.profile-pic-wrapper {
+    width: 5rem;
+    height:5rem;
+    
 }
 
 .all-comment-wrapper {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .person-data-wrapper {
     width: 100%;
     display: flex;
-    justify-content:left;
-    align-items: center;
+    justify-content:center;
     padding-left: 10px;
+    align-items: left;
+    flex-direction: column;
+    margin: 2px;
+    
 }
 
 .komentar-text-wrapper {
     display: flex;
     flex-direction: row;
+    width: 100%;
     
 }
 
 .line-wrapper {
-    background: lightseagreen;
+  /*  background: lightseagreen; */
     width: 5rem;
     display: flex;
     flex-direction: column;
@@ -124,5 +139,22 @@ a {
 }
 
 .first-last-name-para {
+    font-size: 25px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-weight:500;
+    line-height: 1.7em;
+}
+
+
+.date-para {
+    font-size: 15px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+}
+
+.komentar-para {
     font-size: 20px;
+    padding-left: 10px;
 }

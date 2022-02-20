@@ -130,16 +130,19 @@ if (isset($_SESSION['id'])) {
                             $komentarOpis = $rowKomentar['opis'];
                             $komentarUstvarjen = $rowKomentar['created_at'];
 
-                            $seconds = formatDate($komentarID,$conn);
-                            echo "<pre>";
+                            $komentar = true;
+
+                            $seconds = formatDate($komentarID,$conn,$komentar);
+                            /*echo "<pre>";
                             echo "Seconds: ";
-                            var_dump($seconds);
-                            echo "</pre>";
+                            var_dump($seconds); */
+                            $timeArr = secondsToTime($seconds);
+                           /* echo "</pre>"; */
 
                             echo "<div>";
-                                echo "<pre>";
+                               /* echo "<pre>";
                                 var_dump($rowKomentar);
-                                echo "</pre>";
+                                echo "</pre>"; */
                                 echo "<div class='all-comment-wrapper'>";
                                     echo "<div class='comment-header-wrapper'>";
                                         echo "<div class='profile-pic-wrapper'>";
@@ -152,7 +155,25 @@ if (isset($_SESSION['id'])) {
 
                                         echo "<div class='person-data-wrapper'>";
                                             echo "<p class='first-last-name-para'>$rowKomentar[ime]  $rowKomentar[priimek]</p>";
-                                            echo "<p class='date-para'></p>";
+
+                                            foreach ($timeArr as $timeDelimiter => $value) {
+                                                if ($value > 0) {
+                                                    if ($value === 1) {
+                                                        echo "<p class='date-para'>$value $timeDelimiter o nazaj</p>";
+                                                        break;
+                                                    }
+                                                    else if ($value === 2) {
+                                                        echo "<p class='date-para'>$value $timeDelimiter i nazaj</p>";
+                                                        break;
+                                                    } else {
+                                                        echo "<p class='date-para'>$value $timeDelimiter nazaj</p>";
+                                                        break;
+                                                    }
+                                                    
+                                                }
+                                            }
+
+                                            
                                         echo "</div>";
                                     echo "</div>";
 
@@ -163,15 +184,19 @@ if (isset($_SESSION['id'])) {
                                         echo "</div>";
 
                                         echo "<div class='komentar' id='komentar$komentarID'>";
-                                        echo "<p>$komentarOpis</p>";
+                                        echo "<p class='komentar-para'>$komentarOpis</p>";
                                             echo "<div style='display: flex;'>";
-                                                echo "<button onclick=showReplies($komentarID,1)>";
-                                                    echo "<svg stroke='currentColor' fill='currentColor' stroke-width='0' viewBox='0 0 24 24' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'><path d='M12,9c-1.642,0-3,1.359-3,3c0,1.642,1.358,3,3,3c1.641,0,3-1.358,3-3C15,10.359,13.641,9,12,9z'></path><path d='M12,5c-7.633,0-9.927,6.617-9.948,6.684L1.946,12l0.105,0.316C2.073,12.383,4.367,19,12,19s9.927-6.617,9.948-6.684 L22.054,12l-0.105-0.316C21.927,11.617,19.633,5,12,5z M12,17c-5.351,0-7.424-3.846-7.926-5C4.578,10.842,6.652,7,12,7 c5.351,0,7.424,3.846,7.926,5C19.422,13.158,17.348,17,12,17z'></path></svg>";
-                                                echo "</button>";
+                                                echo "<button onclick=showReplies($komentarID,1)>"; ?>
+                                                   
+                                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="17" r="1.3"></circle><path d="M18 4c-2.206 0-4 1.794-4 4v3h-4v-1h-3c-1.104 0-2 .896-2 2v7c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2v-7c0-1.104-.896-2-2-2h-1v-2c0-1.104.896-2 2-2s2 .896 2 2v3c0 .552.448 1 1 1s1-.448 1-1v-3c0-2.206-1.794-4-4-4zm-1 15h-10v-7h10.003l-.003 7z"></path></svg>
+                                        <?php        echo "</button>";
                                                 echo "<form method='POST' action='../logic/reply.php'>";
-                                                    echo "<input type='text' name='replyComment' placeholder='odgovori'/>";
+                                                    
                                                     echo "<input type='hidden' name='replyingTo' value='$komentarID'>";
-                                                    echo "<button type='submit' name='posljiKomentar'>Odgovori</button>";
+                                                    echo "<button type='submit' name='posljiKomentar'>"; ?>
+                                                    
+                                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>
+                                        <?php       echo "</button>"; 
                                                 echo "</form>";
                                             echo "</div>";
                                         echo "</div>";
