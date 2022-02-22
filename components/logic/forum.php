@@ -72,9 +72,10 @@ function checkOpis($conn,$opis,&$errors) {
 
 
 function getSingleTema($conn,$temaID) {
-    $sql = "SELECT te.temaID,te.naslov,te.razprava,te.uporabnikID,upo.ime,upo.priimek FROM Tema te
+    $sql = "SELECT te.temaID,te.naslov,te.razprava,te.uporabnikID,upo.ime,upo.priimek,profilka.profilkaID FROM Tema te
             INNER JOIN Uporabnik upo ON (upo.uporabnikID = te.uporabnikID)
-            WHERE te.temaID = $temaID";
+            LEFT JOIN Profilka ON (profilka.uporabnikID = upo.uporabnikID)
+                WHERE te.temaID = $temaID";
 
     if ($result = mysqli_query($conn,$sql)) {
         //echo "Ok";
@@ -86,7 +87,7 @@ function getSingleTema($conn,$temaID) {
 
 
 function checkKomentar($conn,$komentar) {
-    if (strlen($komentar) > 1) {
+    if (strlen($komentar) > 0) {
         return true;
     } else {
         return false;
@@ -106,6 +107,20 @@ function insertKomentar($conn,$komentar,$uporabnikID,$temaID) {
     } else {
         echo "Error: " . mysqli_error($conn);
        return false;
+    }
+}
+
+function insertReply($conn,$komentarID,$reply,$uporabnikID) {
+    $sql = "INSERT INTO Odgovor
+            (opis,nested_level,komentarID,uporabnikID)
+            VALUES
+            ('$reply',1,'$komentarID','$uporabnikID')";
+    
+    if (mysqli_query($conn,$sql)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false;
     }
 }
 
@@ -245,10 +260,14 @@ function formatDate($komentarID,$conn,$isKomentar) {
     $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
                 FROM Komentar
             WHERE komentarID = '$komentarID'";
-   } else {
+   } else if ($isKomentar === false) {
     $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
                 FROM Odgovor
             WHERE odgovorID = '$komentarID'";
+   } else if ($isKomentar = "temaUstvarjena") {
+    $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                FROM tema
+            WHERE temaID = '$komentarID'";
    }
    
     

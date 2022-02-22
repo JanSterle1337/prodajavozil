@@ -22,11 +22,11 @@ if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl']) && isset($_GET["odgo
             
             $numberOfReplies = mysqli_fetch_all($countedReplies,MYSQLI_ASSOC);
           
-
+/*
             echo "<pre>";
             var_dump($numberOfReplies);
             echo "</pre>"; 
-
+*/
             if (isset($numberOfReplies[0]['stReplyov'])) {
                 $replyNumber = $numberOfReplies[0]['stReplyov'];
             } else {
@@ -94,7 +94,9 @@ if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl']) && isset($_GET["odgo
                                 </button>
                                 <form method="POST" action='../logic/reply.php'> 
                                     <input type='hidden' name="replyingToReplyID">
-                                    
+
+                                    <input type='hidden' name='neki' value="1">
+
                                     <button type="submit" name="replyingToReply">
                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>
                                     </button>
@@ -102,9 +104,11 @@ if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl']) && isset($_GET["odgo
                             </div>
             <?php       } else { ?>
                             <div style="display: flex; margin-left: 20px;">
-                            <form method="POST" action='../logic/reply.php'> 
+                            <form method="POST" action='../templates/reply.php'> 
                                     <input type='hidden' name="replyingToReplyID">
-                                
+
+                                    <input type='hidden' name='neki' value="2">
+
                                     <button type="submit" name="replyingToReply">
                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>
                                     </button>
@@ -149,10 +153,10 @@ else if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl'])) {
             
             
             $numberOfReplies = mysqli_fetch_all($countedReplies,MYSQLI_ASSOC);
-           
+           /*
             echo "<pre>";
             var_dump($numberOfReplies);
-            echo "</pre>"; 
+            echo "</pre>"; */
             if (isset($numberOfReplies[0]['stReplyov'])) {
                 $replyNumber = $numberOfReplies[0]['stReplyov'];
             } else {
@@ -215,8 +219,11 @@ else if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl'])) {
                                 <button onclick="showReplyReplies(<?php echo htmlspecialchars($komentarID); echo ','; echo  htmlspecialchars($nestedLvl); echo ','; echo  htmlspecialchars($rows['odgovorID']); ?>)">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="17" r="1.3"></circle><path d="M18 4c-2.206 0-4 1.794-4 4v3h-4v-1h-3c-1.104 0-2 .896-2 2v7c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2v-7c0-1.104-.896-2-2-2h-1v-2c0-1.104.896-2 2-2s2 .896 2 2v3c0 .552.448 1 1 1s1-.448 1-1v-3c0-2.206-1.794-4-4-4zm-1 15h-10v-7h10.003l-.003 7z"></path></svg>
                                 </button>
-                                <form method="POST" action='../logic/reply.php'> 
+                                <form method="POST" action='../templates/reply.php'> 
                                     <input type='hidden' name="replyingToReplyID">
+
+                                    <input type='hidden' name='neki' value="3">
+
                                     <button type="submit" name="replyingToReply">
                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>
                                     </button>
@@ -224,9 +231,11 @@ else if (isset($_GET["komentarID"]) && isset($_GET['nestedLvl'])) {
                             </div>
             <?php   echo "</div>";    } else { ?>
                             <div style="display: flex; margin-left: 20px;">
-                            <form method="POST" action='../logic/reply.php'> 
+                            <form method="POST" action='../templates/reply.php'> 
                                     <input type='hidden' name="replyingToReplyID">
                                 
+                                    <input type='hidden' name='neki' value="4">
+
                                     <button type="submit" name="replyingToReply">
                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>
                                     </button>

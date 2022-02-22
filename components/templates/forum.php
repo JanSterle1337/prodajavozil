@@ -5,6 +5,15 @@ require ("../../config/db_connect.php");
 require ("../logic/forum.php");
 
 
+$komentarValidation = array(
+    "validated" => true,
+    "message" => "",
+);
+
+
+
+
+
 if (isset($_SESSION['id'])) {
     $id = mysqli_real_escape_string($conn,$_SESSION['id']);
     if (isset($_GET['temaID'])) {
@@ -15,10 +24,19 @@ if (isset($_SESSION['id'])) {
             if ($isKomentarOk == true) {
                 $isInserted = insertKomentar($conn,$komentar,$id,$temaID);
                 if ($isInserted === true) {
-                    Header("Location: forum.php?temaID=$temaID");
+                    $komentarValidation["validated"] = true;
+                    $komentarValidation['message'] = "Komentar je bil uspešno dodan v temo.";
+                   
                 } else {
-                    echo "Error napakaaaaaaaaaaa";
+                    $komentarValidation['validated'] = false;
+                    $komentarValidation["message"] = "Napaka pri vnosu komentarja.";
+                  
+                    
                 }
+            } else {
+                $komentarValidation['validated'] = false;
+                $komentarValidation["message"] = "Napaka pri vnosu komentarja.";
+                
             }
         }
     }
@@ -92,12 +110,62 @@ if (isset($_SESSION['id'])) {
 
                 if (!is_bool($temaData)) { 
                     while ($row = mysqli_fetch_assoc($temaData)) {
+
+                        $komentar = true;
+
+                        $temaID = $row['temaID'];
+
+                        $seconds = formatDate($temaID,$conn,$komentar);
+                        $timeArr = secondsToTime($seconds);
+                        
+
                         echo "<div class='tema'>";
-                            echo "<div class='naslov'>";
+                            echo "<div class='tema-header-wrapper'>";
+
+                                echo "<div class='tema-creator-wrapper'>";
+
+                                    echo "<div class='profile-pic-wrapper'>";
+                                    if ($row['profilkaID'] == NULL) {
+                                        echo "<img src='../../assets/profiledefault.png' class='profile-picture'>";
+                                    } else {
+                                        echo "<img src='../../assets/profile$row[uporabnikID].jpg' class='profile-picture'>";
+                                    }
+                                    echo "</div>";
+
+                                    echo "<div class='person-data-wrapper'>";
+                                        echo "<p class='first-last-name-para'>" . $row['ime'] . " " . $row['priimek'] . "</p>";
+                                        
+                                            
+                                    
+                                        foreach ($timeArr as $timeDelimiter => $value) {
+                                           
+                                            if ($value > 0) {
+                                                if ($value === 1) {
+                                                    echo "<p class='date-para'>$value $timeDelimiter o nazaj</p>";
+                                                    break;
+                                                }
+                                                else if ($value === 2) {
+                                                    echo "<p class='date-para'>$value $timeDelimiter i nazaj</p>";
+                                                    break;
+                                                } else {
+                                                    echo "<p class='date-para'>$value $timeDelimiter nazaj</p>";
+                                                    break;
+                                                }
+                                                
+                                            }
+                                        }
+                                    echo "</div>";
+
+                                   
+
+                                echo "</div>";
+
                                 echo "<div class='naslov'>";
-                                    echo "<h1>" . $row['naslov'] . "</h1>";
-                                    echo "<p>" . $row['razprava'];
-                                    echo "<p>" . "Temo ustvaril: " . $row['ime'] . " " . $row['priimek'] . "</p>";
+                                    echo "<div class='naslov'>";
+                                        echo "<h1 class='naslov-para'>" . $row['naslov'] . "</h1>";
+                                        echo "<p class='razprava'>" . $row['razprava'];
+                                        
+                                    echo "</div>";
                                 echo "</div>";
                             echo "</div>";
                     }
@@ -108,11 +176,20 @@ if (isset($_SESSION['id'])) {
                     <div class='add-komentar-wrapper'>
                         <form class='add-komentar-form' action="forum.php?temaID=<?php echo htmlspecialchars($temaID); ?>" method="POST">
                             <div class="input-komentar">
-                                <label for="komentar">Dodaj nov komenentar</label>
-                                <textarea name='komentar'></textarea>
+                                <label for="komentar" class='add-komentar'>
+                                    Dodaj nov komentar
+                                </label>
                             </div>
-                            <div class='button-komentar'>
-                                <button type="submit" name="add-komentar">Post</button>
+                            <div class='input-button-komentar'>
+                                <textarea class='input-komentar' name='komentar'></textarea>
+                                <?php 
+                                    if ($komentarValidation['validated'] === true) {
+                                        echo "<p class='ok'>" . htmlspecialchars($komentarValidation['message']) . "</p>";
+                                    } else {
+                                        echo "<p class='notOk'>" . htmlspecialchars($komentarValidation['message']) . "</p>";
+                                    }
+                                ?>
+                                <button type="submit" name="add-komentar" class='objavi-komentar'>Objavi</button>
                             </div>
                         </form>
                     </div>
@@ -129,6 +206,16 @@ if (isset($_SESSION['id'])) {
                             $komentarID = $rowKomentar['komentarID'];
                             $komentarOpis = $rowKomentar['opis'];
                             $komentarUstvarjen = $rowKomentar['created_at'];
+
+                            $countedReplies = numberOfReplys($conn,$komentarID,$nestedLvlStevec);
+                            $numberOfReplies = mysqli_fetch_all($countedReplies,MYSQLI_ASSOC);
+
+                            if (isset($numberOfReplies[0]['stReplyov'])) {
+                                $replyNumber = $numberOfReplies[0]['stReplyov'];
+                            } else {
+                                $replyNumber = 0;
+                            }
+
 
                             $komentar = true;
 
@@ -155,23 +242,37 @@ if (isset($_SESSION['id'])) {
 
                                         echo "<div class='person-data-wrapper'>";
                                             echo "<p class='first-last-name-para'>$rowKomentar[ime]  $rowKomentar[priimek]</p>";
-
-                                            foreach ($timeArr as $timeDelimiter => $value) {
-                                                if ($value > 0) {
-                                                    if ($value === 1) {
-                                                        echo "<p class='date-para'>$value $timeDelimiter o nazaj</p>";
-                                                        break;
+/*
+                                            if ($komentarOpis == "nekineki") {
+                                                echo "<pre>";
+                                                var_dump($timeArr);
+                                                echo "</pre>";
+                                            }
+                                            echo "</br></br></br>";
+*/
+                                            if (is_int($timeArr) && $timeArr === 0) {
+                                                echo "<p class='date-para'>1 sekundo nazaj</p>";
+                                            } else {
+                                                foreach ($timeArr as $timeDelimiter => $value) {
+                                                    if ($value > 0) {
+                                                        if ($value === 1) {
+                                                            echo "<p class='date-para'>$value $timeDelimiter o nazaj</p>";
+                                                            break;
+                                                        }
+                                                        else if ($value === 2) {
+                                                            echo "<p class='date-para'>$value $timeDelimiter i nazaj</p>";
+                                                            break;
+                                                        } else {
+                                                            echo "<p class='date-para'>$value $timeDelimiter nazaj</p>";
+                                                            break;
+                                                        }
+                                                        
                                                     }
-                                                    else if ($value === 2) {
-                                                        echo "<p class='date-para'>$value $timeDelimiter i nazaj</p>";
-                                                        break;
-                                                    } else {
-                                                        echo "<p class='date-para'>$value $timeDelimiter nazaj</p>";
-                                                        break;
-                                                    }
-                                                    
                                                 }
                                             }
+
+
+                                            
 
                                             
                                         echo "</div>";
@@ -186,13 +287,18 @@ if (isset($_SESSION['id'])) {
                                         echo "<div class='komentar' id='komentar$komentarID'>";
                                         echo "<p class='komentar-para'>$komentarOpis</p>";
                                             echo "<div style='display: flex;'>";
+                                            if ($replyNumber > 0) {
                                                 echo "<button onclick=showReplies($komentarID,1)>"; ?>
-                                                   
-                                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="17" r="1.3"></circle><path d="M18 4c-2.206 0-4 1.794-4 4v3h-4v-1h-3c-1.104 0-2 .896-2 2v7c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2v-7c0-1.104-.896-2-2-2h-1v-2c0-1.104.896-2 2-2s2 .896 2 2v3c0 .552.448 1 1 1s1-.448 1-1v-3c0-2.206-1.794-4-4-4zm-1 15h-10v-7h10.003l-.003 7z"></path></svg>
+                                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="17" r="1.3"></circle><path d="M18 4c-2.206 0-4 1.794-4 4v3h-4v-1h-3c-1.104 0-2 .896-2 2v7c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2v-7c0-1.104-.896-2-2-2h-1v-2c0-1.104.896-2 2-2s2 .896 2 2v3c0 .552.448 1 1 1s1-.448 1-1v-3c0-2.206-1.794-4-4-4zm-1 15h-10v-7h10.003l-.003 7z"></path></svg>
                                         <?php        echo "</button>";
-                                                echo "<form method='POST' action='../logic/reply.php'>";
+                                            }
+                                                
+                                                   
+                                                    
+                                                echo "<form method='POST' action='../templates/reply.php'>";
                                                     
                                                     echo "<input type='hidden' name='replyingTo' value='$komentarID'>";
+                                                    echo "<input type='hidden' name='replyingToTema' value='$temaID'>";
                                                     echo "<button type='submit' name='posljiKomentar'>"; ?>
                                                     
                                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>

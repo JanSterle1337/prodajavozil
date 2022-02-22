@@ -1,10 +1,160 @@
-.forum-wrapper {
-    /*background: #eeee; */
 
+
+.forum-wrapper {
+    background: #eeee;
+    
 }
 
 .tema {
     width: 100%;
+}
+
+.tema-header-wrapper {
+    background: white;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+}
+
+.razprava {
+    padding-left: 25px;
+    font-size: 1.5rem;
+    margin: 10px;
+}
+
+
+.add-komentar-form {
+    padding-top: 20px;
+}
+
+.add-komentar-wrapper {
+    border-radius: 20px;
+    background: white;
+    margin: 20px;
+    box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+}
+
+.input-button-komentar {
+    padding-left: 30px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+}
+
+textarea.input-komentar {
+    width: 600px;
+    height: 200px;
+    background: #eeee;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+    
+}
+
+.objavi-komentar {
+    width: 120px;
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 25px;
+    background: #106dee;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 130px;
+    margin: 20px;
+}
+
+.objavi-komentar:focus {
+    background: #00B2FF;
+    border: 1px solid #00B2FF;
+}
+
+.objavi-komentar:hover {
+    background: #00B2FF;
+    border: 1px solid #00B2FF;
+}
+
+
+
+textarea.input-komentar:focus {
+    background: white;
+    border: 2px solid #106dee;
+    outline: none;
+}
+
+.add-komentar {
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 25px;
+    color: #434343;
+}
+
+.naslov {
+    padding-bottom: 10px;
+}
+
+.ok {
+    color:#00B2FF;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.notOk {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.naslov-para {
+    font-size: 3rem;
+    padding-left: 20px;
+    margin-top: 20px;
+    color: #434343;
+}
+
+.line-bottom {
+    border-bottom: 4px solid gray;
+    height: 10rem !important;
+}
+
+.line-bottom:hover {
+    border-bottom: 5px solid #00B2FF;
+}
+
+
+
+.omejitev-visine {
+    height: 5rem;
+}
+
+.nested {
+    padding-left: 10px;
+}
+
+
+
+.tema-creator-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding-left: 25px;
+    padding-top: 10px;
+}
+
+.teme-wrapper {
+    margin: 20px;
+    /*border-radius: 20px;
+    background: white; */
 }
 
 .comment-header-wrapper {
@@ -40,7 +190,6 @@
 }
 
 .tema-wrapper {
-    border: 1px solid black;
     display: flex;
     flex-direction: row;
 }
@@ -63,6 +212,12 @@ a {
 .komentar-section-wrapper {
     background: white;
     width: 100%;
+    border-radius: 20px;
+    padding-top: 25px;
+    box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 9px 25px -4px rgba(0,0,0,0.75);
+    
 }
 
 .search-form-wrapper {
@@ -100,6 +255,7 @@ a {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    margin-left: 25px;
 }
 
 .person-data-wrapper {
@@ -135,8 +291,15 @@ a {
     align-self:flex-end;
     border-left: 4px solid gray;
     border-bottom-left-radius: 20px;
-    
+
 }
+
+.line:hover {
+    border-left: 5px solid #00B2FF;
+
+}
+
+
 
 .first-last-name-para {
     font-size: 25px;
