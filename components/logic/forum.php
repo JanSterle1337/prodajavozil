@@ -3,7 +3,8 @@
 
 function getAllTeme($conn) {
     $sql = "SELECT *
-            FROM Tema";
+            FROM Tema
+            ORDER BY created_at DESC";
 
     if ($result = mysqli_query($conn,$sql)) {
         //echo "Ok";
@@ -116,6 +117,23 @@ function insertReply($conn,$komentarID,$reply,$uporabnikID) {
             VALUES
             ('$reply',1,'$komentarID','$uporabnikID')";
     
+    if (mysqli_query($conn,$sql)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+
+        return "Napaka pri vnosu odgovora.";
+    }
+}
+
+
+function insertReplyReply($conn,$komentarID,$odgovorjenID,$nestedLvl,$opis,$uporabnikID) {
+    echo "Insertamo v REPLY REPLY: " . "komentarID $komentarID" . "OdgovorjenID $odgovorjenID" . "nestedLvl $nestedLvl" . "Opis $opis" . "Uporabnik $uporabnikID </br>";
+    $sql = "INSERT INTO Odgovor
+            (opis,nested_level,komentarID,uporabnikID,odgovorjenID)
+            VALUES
+            ('$opis',$nestedLvl,'$komentarID','$uporabnikID','$odgovorjenID')";
+
     if (mysqli_query($conn,$sql)) {
         return true;
     } else {
@@ -233,6 +251,7 @@ function retrieveReplyReplys($conn,$komentarID,$odgovorjenID,$nestedLvl = 1) {
             odg.odgovorjenID,
             odg.odgovorID,
             odg.created_at,
+            upo.uporabnikID,
             upo.ime,
             upo.priimek,
             kom.komentarID,
@@ -273,6 +292,7 @@ function formatDate($komentarID,$conn,$isKomentar) {
     
     $result = mysqli_query($conn,$sql);
     $data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    
     $dateSeconds = $data[0]['seconds'];
 
     $sql2 = "SELECT UNIX_TIMESTAMP(NOW()) as current_seconds";

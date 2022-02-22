@@ -41,7 +41,7 @@ if (isset($_SESSION['id'])) {
         }
     }
 } else {
-    echo "Neprijavljen";
+    
 }
 
 ?>
@@ -63,40 +63,78 @@ if (isset($_SESSION['id'])) {
 
         <div class="forum-wrapper">
             <div class="header-team-wrapper">
-                <div class="nova-tema-wrapper">
+            
+            <div class='close-wrapper'>
+
+            <?php
+
+            if (!isset($temaID)) {  ?>
+                <a href="forum.php" class='middle-center'>
+                    <svg class='icon' stroke="black" fill="gray" stroke-width="0" viewBox="0 0 1024 1024" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 0 1-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"></path></svg>
+                </a>
+            <?php      } else { ?>
+                <a class='middle-center' href="forum.php">
+                    <svg class='icon' stroke="black" fill="gray" stroke-width="0" viewBox="0 0 1024 1024" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 0 1-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"></path></svg>
+                </a>
+            <?php      }?>
+
+
+
+            </div>
+                
                     <?php  //ce je uporabnik prijavljen in je nastavljen pogled na vse teme
                         if (isset($_SESSION['id']) && !isset($_GET['temaID'])) {  ?>
+                <div class="nova-tema-wrapper">
                         <form action="novaTema.php" METHOD="POST">
                             <label for="novaTema">Ustvari novo temo</label>
                             <button type="submit" name="novaTema" class="nova-tema-gumb">Nova tema</button>
-                        </form>  
-                <?Php }  ?>
+                        </form> 
+                </div> 
+                <?Php } ?>
+                
                     
                 </div>
 
-                <div  class="search-tema-wrapper">
-                    <form action="search.php" METHOD="POST" class="search-form-wrapper">
-                    <div>
-                        <input type="text" name="search-tema"/>
-                    </div>
-                    <div>
-                        <button type="submit"  name="submit-search">Išči</button>
-                    </div>
-                    </form>
-                        
-                </div>
-            </div>
+                
 
             <div class="teme-wrapper">
         <?php if (!isset($_GET['temaID'])) { 
-            echo "<div class='teme-wrapper'>";
+            echo "<div class='teme'>";
                 $allTeme = getAllTeme($conn);
                 while ($row = mysqli_fetch_assoc($allTeme)) {
                     echo "<a href='forum.php?temaID=$row[temaID]'>";
-                    echo "<div class='tema-wrapper'>
-                            <p class='left'>$row[naslov]</p>
-                            <p class='right'>$row[created_at]</p>
-                          </div>";
+                    echo "<div class='tema-wrapper'>";
+                        echo "<p class='left'>$row[naslov]</p>";
+
+                        $komentar = "temaUstvarjena";
+
+                        $temaID = $row['temaID'];
+
+                        $seconds = formatDate($temaID,$conn,$komentar);
+                        $timeArr = secondsToTime($seconds);
+
+
+                        foreach ($timeArr as $timeDelimiter => $value) {
+                                           
+                            if ($value > 0) {
+                                if ($value === 1) {
+                                    echo "<p class='right'>$value $timeDelimiter o nazaj</p>";
+                                    break;
+                                }
+                                else if ($value === 2) {
+                                    echo "<p class='right'>$value $timeDelimiter i nazaj</p>";
+                                    break;
+                                } else {
+                                    echo "<p class='right'>$value $timeDelimiter nazaj</p>";
+                                    break;
+                                }
+                                
+                            }
+                        }
+
+
+                        //echo "<p class='right'>$row[created_at]</p>";
+                      echo "</div>";
                     echo "</a>"; 
 
                 }
@@ -111,7 +149,7 @@ if (isset($_SESSION['id'])) {
                 if (!is_bool($temaData)) { 
                     while ($row = mysqli_fetch_assoc($temaData)) {
 
-                        $komentar = true;
+                        $komentar = "temaUstvarjena";
 
                         $temaID = $row['temaID'];
 
