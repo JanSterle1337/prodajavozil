@@ -49,6 +49,18 @@ function updateTema($conn,$temaID,$naslov,$opis) {
 }
 
 
+function deleteTema($conn,$temaID) {
+    $sql = "DELETE
+            FROM Tema
+            WHERE temaID = '$temaID'";
+
+    if (mysqli_query($conn,$sql)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function checkNaslov($conn,$naslov,&$errors) {
     if (strlen($naslov) < 4) {
         $errors["naslov"] = "Napaka pri vnosu naslova";

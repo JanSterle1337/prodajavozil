@@ -71,7 +71,7 @@ if (isset($_SESSION['id'])) {
             ?>
 
                 <div class="personal-wrapper">
-                    <p class="personal-info"><?php echo "$ime " . "$priimek" ?></p>
+                    <p class="personal-info username"><?php echo "$ime " . "$priimek" ?></p>
                     <p class="personal-info"><?php echo $ePosta ?></p>
                     <p class="personal-info"><?php echo $tel ?></p>
                     <p class="about-info"><?php echo $opis ?></p>

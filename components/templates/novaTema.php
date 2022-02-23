@@ -24,9 +24,10 @@ $errors = array(
             if ($isNaslovOk == true && $isOpisOk == true) {
                 $isSent = createTema($conn,$naslov,$opis,$id,$errors);
                 if ($isSent === true) {
-                    echo "Uspesno poslano v bazo. </br>";
+                    
                     $errors['naslov'] = "";
                     $errors['besedilo'] = "";
+                   Header("Location: forum.php");
 
                 } else {
                     echo "Error: " . mysqli_error($conn);

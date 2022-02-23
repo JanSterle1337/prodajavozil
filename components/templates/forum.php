@@ -116,24 +116,28 @@ if (isset($_SESSION['id'])) {
                         $timeArr = secondsToTime($seconds);
 
 
-                        foreach ($timeArr as $timeDelimiter => $value) {
-                                           
-                            if ($value > 0) {
-                                if ($value === 1) {
-                                    echo "<p class='right centered'>$value $timeDelimiter o nazaj</p>";
-                                    break;
+                        if (!is_array($timeArr)) {
+                            echo "<p class='right centered'>1 sekunda nazaj</p>";
+                        } else {
+
+                            foreach ($timeArr as $timeDelimiter => $value) {
+                                            
+                                if ($value > 0) {
+                                    if ($value === 1) {
+                                        echo "<p class='right centered'>$value $timeDelimiter o nazaj</p>";
+                                        break;
+                                    }
+                                    else if ($value === 2) {
+                                        echo "<p class='right centered'>$value $timeDelimiter i nazaj</p>";
+                                        break;
+                                    } else {
+                                        echo "<p class='right centered'>$value $timeDelimiter nazaj</p>";
+                                        break;
+                                    }
+                                    
                                 }
-                                else if ($value === 2) {
-                                    echo "<p class='right centered'>$value $timeDelimiter i nazaj</p>";
-                                    break;
-                                } else {
-                                    echo "<p class='right centered'>$value $timeDelimiter nazaj</p>";
-                                    break;
-                                }
-                                
                             }
                         }
-
                     
                         echo "</a>"; 
 
@@ -145,7 +149,7 @@ if (isset($_SESSION['id'])) {
                                 <svg class='update-icon' stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zM16.045 4.401l1.587 1.585-1.59 1.584-1.586-1.585L16.045 4.401zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zM4 20H20V22H4z"></path></svg>
                             </a>
 
-                            <a href='izbrisiTemo.php' class='posodobi-temo-link'>
+                            <a href='../logic/izbrisiTemo.php?temaID=<?php echo htmlspecialchars($temaID) ?>' class='posodobi-temo-link'>
                                 <svg class='delete-icon' stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"></path></svg>
                             </a>
             <?php           }
@@ -351,7 +355,7 @@ if (isset($_SESSION['id'])) {
                                         echo "<p class='komentar-para'>$komentarOpis</p>";
                                             echo "<div style='display: flex;'>";
                                             if ($replyNumber > 0) {
-                                                echo "<button onclick=showReplies($komentarID,1)>"; ?>
+                                                echo "<button class='replying-button' onclick=showReplies($komentarID,1)>"; ?>
                                                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="17" r="1.3"></circle><path d="M18 4c-2.206 0-4 1.794-4 4v3h-4v-1h-3c-1.104 0-2 .896-2 2v7c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2v-7c0-1.104-.896-2-2-2h-1v-2c0-1.104.896-2 2-2s2 .896 2 2v3c0 .552.448 1 1 1s1-.448 1-1v-3c0-2.206-1.794-4-4-4zm-1 15h-10v-7h10.003l-.003 7z"></path></svg>
                                         <?php        echo "</button>";
                                             }
@@ -362,7 +366,7 @@ if (isset($_SESSION['id'])) {
                                                     
                                                     echo "<input type='hidden' name='replyingTo' value='$komentarID'>";
                                                     echo "<input type='hidden' name='replyingToTema' value='$temaID'>";
-                                                    echo "<button type='submit' name='posljiKomentar'>"; ?>
+                                                    echo "<button class='replying-button' type='submit' name='posljiKomentar'>"; ?>
                                                     
                                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M9.079 11.9l4.568-3.281a.719.719 0 000-1.238L9.079 4.1A.716.716 0 008 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"></path></svg>
                                         <?php       echo "</button>"; 

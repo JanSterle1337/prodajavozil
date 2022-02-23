@@ -519,3 +519,14 @@ a {
     font-size: 20px;
     padding-left: 10px;
 }
+
+.replying-button {
+    outline: none;
+    border: none;
+    background: white;
+}
+
+
+svg:hover {
+    fill:#106dee;
+}
