@@ -33,16 +33,32 @@ function createTema($conn,$naslov,$opis,$uporabnikID,&$errors) {
 }
 
 
+function updateTema($conn,$temaID,$naslov,$opis) {
+    $sql = "UPDATE
+            Tema
+            SET 
+            naslov='$naslov',
+            razprava='$opis'
+            WHERE temaID = '$temaID'";
+
+    if (mysqli_query($conn,$sql)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 function checkNaslov($conn,$naslov,&$errors) {
     if (strlen($naslov) < 4) {
-        $errors["naslov"] = "Prekratek naslov";
+        $errors["naslov"] = "Napaka pri vnosu naslova";
         return false;
     } else {
         $blacklistChars = '"%\'*;<>^`{|}~/\\#=&';
         $pattern = preg_quote($blacklistChars, '/');
         if (preg_match('/[' . $pattern . ']/', $naslov)) {
             //echo "Nej urjde";
-            $errors['naslov'] = "Vsebuje čudne črke";
+            $errors['naslov'] = "Napaka pri vnosu naslova.";
             return false;
         } else {
             //echo "Je urjde";

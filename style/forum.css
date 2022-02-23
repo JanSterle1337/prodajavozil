@@ -9,6 +9,61 @@
     width: 100%;
 }
 
+.naslov-tema {
+    font-size: 30px;
+    color: #434343;
+    font-weight: bold;
+    margin: 20px;
+    text-align: center;
+}
+
+.text-tema {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 8rem;
+    border-radius: 20px;
+    background: #eeee;
+    outline: none;
+    border: 1px solid gray;
+    width: 30rem;
+    padding: 20px;
+    font-size: 22px;
+    margin: 20px;
+
+}
+
+
+.text-tema:focus {
+    border: 2px solid #106dee;
+    background: white;
+}
+
+.input-tema-naslov {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: #eeee;
+    outline: none;
+    border: 1px solid gray;
+    width: 30rem;
+    padding: 10px;
+    font-size: 22px;
+    margin: 20px;
+}
+
+.input-tema-naslov:focus {
+    border: 2px solid #106dee;
+    background: white;
+    
+}
+
 .tema-header-wrapper {
     background: white;
     border-radius: 20px;
@@ -69,6 +124,19 @@ textarea.input-komentar {
     text-align: center;
     width: 130px;
     margin: 20px;
+    
+}
+
+.padding {
+    padding: 5px;
+    width: 9rem;
+}
+
+
+
+.whole-page-wrapper {
+    width: 100%;
+    height: 100%;
 }
 
 .objavi-komentar:focus {
@@ -209,17 +277,47 @@ textarea.input-komentar:focus {
     justify-content: end;
 }
 
-.nova-tema-wrapper {
-    
-    height: 5rem;
+.nova-tema-form-wrapper {
     display: flex;
     flex-direction: row;
+    border-radius: 20px;
+    margin: 40px;
+   
+   
+}
+
+.posodobi-temo-link {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background: white;
+    fill: none;
+    color: #434343;
+}
+
+.nova-tema-wrapper {
+    
+    
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    background: white;
+    margin: 40px;
+    justify-content: center;
+    box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
+    -webkit-box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
+    -moz-box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
 }
 
 .nova-tema-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .input-wrapper {
@@ -230,6 +328,7 @@ textarea.input-komentar:focus {
 .tema-wrapper {
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 .left {
@@ -242,6 +341,45 @@ textarea.input-komentar:focus {
     color: rgba(99, 99, 99, 0.933);
 }
 
+.right-right {
+    width: 20%;
+    color: rgba(99, 99, 99, 0.933);
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+    align-self: center;
+}
+
+.delete-icon:hover {
+    transition: 0.6s;
+    fill: red;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.update-icon:hover {
+    transition: 0.6s;
+    fill:#106dee;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+
+.naslov-datum {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+}
 a {
     text-decoration: none;
 
