@@ -57,9 +57,7 @@
                 <div class="heading">
                     <h1>Oglas</h1>
                 </div>
-                <div class="gallery">
-                <!--  <img class nekineki> -->
-                </div>
+                <div class="gallery"></div>
                 <div class="oglas-info">
                     <div class="button-wrapper"></div>
                     <div class="info">
@@ -268,14 +266,15 @@
 <script type="text/javascript">
         let data = <?php echo json_encode($photoNameArr); ?>;
         //console.log(data);
+        
 
         let galleryWrapper = document.getElementById("gallery-wrap");
-        //console.log(galleryWrapper);
+        //console.log("Gallery wrapper: " + galleryWrapper);
         
 
 
         let gallery = document.getElementsByClassName("gallery")[0];
-        
+        //console.log("Gallery: " + gallery);
 
        // gallery.className="gallery";
         for(let i = 0; i < data.length; i++) {
@@ -313,6 +312,8 @@
 
         let nodeList = gallery.childNodes;    
 
+        
+
         let buttonForw = document.createElement("button");
         buttonForw.className = "forward";
         buttonForw.innerHTML = "Naprej";
@@ -325,14 +326,17 @@
                 if (nodeList[i].style.display != "none" && (i + 1) < nodeList.length) {
                     nodeList[i].style.display = "none";
                     nodeList[i+1].style.display = "flex";
+                    
                     break;
                 } else if (nodeList[i].style.display != "none" && (i+1) == nodeList.length) {
                     nodeList[i].style.display = "none";
                     nodeList[0].style.display = "flex";
                     break;
                 }
+                
             }
             console.log(gallery.offsetHeight);
+            
         });
 
         let buttonBack = document.createElement("button");
@@ -341,7 +345,7 @@
 
         buttonBack.addEventListener("click",function () {
             for (let i = 0; i < nodeList.length; i++) {
-              //  console.log(nodeList[i].id);
+               //console.log(nodeList[i].id);
                 if (nodeList[i].style.display != "none" && (i - 1)  >= 0) {
                     nodeList[i].style.display = "none";
                     nodeList[i-1].style.display = "flex";
@@ -351,6 +355,7 @@
                     nodeList[nodeList.length-1].style.display = "flex";
                     break;
                 }
+                
             }
         });
 

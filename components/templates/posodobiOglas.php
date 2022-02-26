@@ -8,10 +8,15 @@
     if (isset($_SESSION['id']) && isset($_SESSION['sellerID']) && isset($_SESSION['oglasID'])) {
         $oglasID = mysqli_real_escape_string($conn,$_SESSION['oglasID']);
         $sellerID = mysqli_real_escape_string($conn,$_SESSION['sellerID']);
-        unset($_SESSION['oglasID']);
-        unset($_SESSION['sellerID']);
+        
     } else {
         Header("Location: domov.php");
+    }
+
+    if (isset($_SESSION['errorInfo'])) {
+        echo "<pre style='margin-left: 100px;'>";
+        var_dump($_SESSION['errorInfo']);
+        echo "</pre>";
     }
 ?>
 
@@ -21,6 +26,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../style/ustvari.css">
     <title>Document</title>
     <script>
         function my_fun(str) {
@@ -96,7 +102,7 @@
                                 
 
                                     <div id='poll'>
-                                        <select style=' width: 15rem; height: 3rem; font-size: 1.5rem;padding: 5px;'>
+                                        <select name='model' style=' width: 15rem; height: 3rem; font-size: 1.5rem;padding: 5px;'>
                                             <option value="<?php echo htmlspecialchars($model) ?>"><?php echo htmlspecialchars($model); ?></option>
                                         </select>
                                     </div>
@@ -176,7 +182,23 @@
                                 </div>
                             </div>
 
+
+
                             <div class="submit-wrapper">
+                            <br></br>
+                                <?php 
+
+                                    if (isset($_SESSION['errorInfo'])) {
+
+                                    foreach ($_SESSION['errorInfo'] as $key => $value) {
+                                        if ($value !== "") {
+                                            echo "<p class='notOK'>$value</p></br>";
+                                        }
+                                        
+                                    }
+                                } 
+                                ?>
+                                <br></br>
                                 <input type="hidden" name="voziloID" value="<?php echo htmlspecialchars($voziloID) ?>" />
                                 <input type="hidden" name="oglasID" value="<?php echo htmlspecialchars($oglasID) ?>"/>
                                 <button type="submit" name="posodobi" class="ustvari">Posodobi oglas</button>

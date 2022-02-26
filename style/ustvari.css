@@ -181,3 +181,15 @@ textarea {
     transition: 0.6s;
     
 }
+
+.notOk {
+    color: red;
+    font-weight: bold;
+}
+
+.submit-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

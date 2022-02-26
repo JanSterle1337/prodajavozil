@@ -54,6 +54,7 @@ function generateSearchQuery($conn) {
 
 
         if ($znamka == "Vse znamke") {
+            $znamka = "";
             $validation["znamka"] = true;
             
         } else {
@@ -62,6 +63,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($model == "Vsi modeli") {
+            $model = "";
             $validation["model"] = true;
             
         } else {
@@ -70,6 +72,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($cenaOd == "Cena od") {
+            $cenaOd = "";
             $validation["model"] = true;
             
         } else {
@@ -78,6 +81,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($cenaDo == "Cena do") {
+            $cenaDo = "";
             $validation["cenaOd"] = true;
         } else {
             $validation["cenaDo"] = " AND og.cena <= $cenaDo";
@@ -85,6 +89,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($letnikOd == "Letnik od") {
+            $letnikOd = "";
             $validation["letnikOd"]= true;
         } else {
             $validation["letnikOd"]= " AND voz.letnik >= $letnikOd";
@@ -92,6 +97,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($letnikDo  == "Letnik do") {
+            $letnikDo = "";
             $validation["letnikDo"]= true;
         } else {
             $validation["letnikDo"]= " AND voz.letnik <= $letnikDo";
@@ -99,6 +105,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($kilometrovDo == "Kilometrov do") {
+            $kilometrovDo = "";
             $validation["kilometrovDo"] = true;
         } else {
             $validation["kilometrovDo"] = " AND voz.prevozeniKm <= $kilometrovDo";
@@ -106,6 +113,7 @@ function generateSearchQuery($conn) {
         }
 
         if ($gorivo == "gorivo") {
+            $gorivo = "";
             $validation["gorivo"] = true;
         } else {
             $validation["gorivo"] = " AND voz.pogon = '$gorivo'";

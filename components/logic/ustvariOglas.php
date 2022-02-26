@@ -101,10 +101,13 @@
                     }
                 }
 
+
+
+
                 
                   $sqlOglas = "INSERT INTO Oglas
                                (opis,cena,created_at,voziloID,model,znamka,uporabnikID)
-                               VALUES('$opisOglasa','$cena','$currentTime','$vozID','$model','$brand','$id');";
+                               VALUES('$opisOglasa',$cena,'$currentTime',$vozID,'$model','$brand',$id);";
 
                   if (mysqli_query($conn,$sqlOglas)) {
                       $i = 0;
@@ -137,8 +140,10 @@
                echo "nc nej tku k more bt</br>";
                echo "<pre>";
                var_dump($queries["errors"]);
-               echo "</pre>";
                $_SESSION["errorInfo"] = $queries;
+               Header("Location: ../templates/ustvari.php?upload=failure");
+               echo "</pre>";
+               
                //header("Location: ../templates/ustvari.php?upload=failure");
            }  
           }

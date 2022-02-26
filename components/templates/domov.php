@@ -12,7 +12,21 @@
         echo "<span style='text-align: center;'>$sessionID</span>"; */
     }
 
+    if (isset($_SESSION['errorInfo'])) {
+      unset($_SESSION['errorInfo']);
+    }
 
+
+    if (isset($_POST['iskanje'])) {
+      $znamka = mysqli_real_escape_string($conn,$_POST['znamka']);
+      $model = mysqli_real_escape_string($conn,$_POST['model']);
+      $cenaOd = mysqli_real_escape_string($conn,$_POST['cena-od']);
+      $cenaDo = mysqli_real_escape_string($conn,$_POST['cena-do']);
+      $letnikOd = mysqli_real_escape_string($conn,$_POST['letnik-od']);
+      $letnikDo = mysqli_real_escape_string($conn,$_POST['letnik-do']);
+      $kilometrovDo = mysqli_real_escape_string($conn,$_POST['kilometrov-do']);
+      $gorivo = mysqli_real_escape_string($conn,$_POST['gorivo']);
+    }
 
 ?>
 
@@ -134,6 +148,25 @@
           </div>
 
         </div>
+
+        <?php 
+
+        if (isset($_POST['iskanje'])) {
+          echo "<div class='filter-wrapper'>";
+            echo "<div class='filter-div'>";
+              echo "<p class='filter'>$znamka</p>";
+              echo "<p class='filter'>$model</p>";
+            echo "</div>";
+
+            echo "<div class='filter-div'>";
+              echo "<p class='filter'>$cenaOd</p>";
+              echo "<p class='filter'>$cenaDo</p>";
+            echo "</div>";
+          echo "</div>";
+        }
+        
+        ?>
+        
         <div class="bottom">
              <button type="submit" name="iskanje" class="hitro-iskanje">Hitro iskanje</button> 
         </div>
@@ -141,11 +174,11 @@
       <div class="oglasi-wrapper">
             <?Php if (isset($_POST['iskanje'])) { 
                   $sql = generateSearchQuery($conn);
-                  /*
+                  
                   echo "<pre>";
                   echo $sql;
                   echo "</pre>";
-                  */
+                  
                   if ($result = mysqli_query($conn,$sql))  {
                     
                   } else {
