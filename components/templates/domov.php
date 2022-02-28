@@ -67,6 +67,9 @@
   <?php require "../templates/StranskiMeni.php "?> 
 
   <main style="margin-bottom: 60px;">
+  <div class='close-wrapper'>
+        
+  </div>
     <h1 class="heading">Hitro iskanje osebnih vozil</h1>
     <div class="domov-wrapper">
       <form class="hitro-iskanje-wrapper" METHOD="POST">
@@ -152,6 +155,7 @@
         <?php 
 
         if (isset($_POST['iskanje'])) {
+          echo "<h2 class='para-heading'>Trenutno vklopljeni filtri</h2>";
           echo "<div class='filter-wrapper'>";
             echo "<div class='filter-div'>";
               echo "<p class='filter'>$znamka</p>";
@@ -161,6 +165,16 @@
             echo "<div class='filter-div'>";
               echo "<p class='filter'>$cenaOd</p>";
               echo "<p class='filter'>$cenaDo</p>";
+            echo "</div>";
+
+            echo "<div class='filter-div'>";
+              echo "<p class='filter'>$letnikOd</p>";
+              echo "<p class='filter'>$letnikDo</p>";
+            echo "</div>";
+
+            echo "<div class='filter-div'>";
+              echo "<p class='filter'>$kilometrovDo</p>";
+              echo "<p class='filter'>$gorivo</p>";
             echo "</div>";
           echo "</div>";
         }
@@ -174,11 +188,11 @@
       <div class="oglasi-wrapper">
             <?Php if (isset($_POST['iskanje'])) { 
                   $sql = generateSearchQuery($conn);
-                  
+                  /*
                   echo "<pre>";
                   echo $sql;
                   echo "</pre>";
-                  
+                  */
                   if ($result = mysqli_query($conn,$sql))  {
                     
                   } else {

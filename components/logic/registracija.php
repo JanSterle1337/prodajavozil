@@ -17,7 +17,7 @@ function checkEmail($email, &$errors, &$conn, &$validation) {
     } 
 
     else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors["email"] = "E-poštni račun mora bitI pravilno vnesen.";
+        $errors["email"] = "E-poštni račun mora biti pravilno vnesen.";
         return false;
     }
 
