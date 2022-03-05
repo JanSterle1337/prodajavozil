@@ -24,6 +24,7 @@
     align-items: center;
     justify-content: center;
     width: 90%;
+    height: 45rem;
     box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
     -webkit-box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
     -moz-box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
@@ -35,6 +36,10 @@
     height: 5rem;
     background: #00B2FF;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: right;
 }
 
 
@@ -56,7 +61,7 @@
 }
 
 .all-users-chats  {
-    background: lightcoral;
+    
     margin: 5px;
     
     
@@ -75,7 +80,14 @@
 .user-chat {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #434343;
+    /*border-bottom: 1px solid #434343; */
+    width: 100%;
+}
+
+.user-chat-a {
+    display: flex;
+  
+
 }
 
 .flex-row {
@@ -119,7 +131,7 @@ a {
     display: flex;
     flex-direction: row;
     width: 100%;
-    border: 1px solid #434343;
+    
 }
 
 .left {
@@ -170,4 +182,112 @@ a {
 .send-message-wrapper {
     display: flex;
     align-self: flex-end;
+
 }
+
+.send-message-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.input-message {
+    width: 90%;
+    border: none;
+    background: #CCCCCC;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-top: 5px;
+    font-size: 22px;
+}
+
+.input-message:focus {
+    border: none;
+    outline: none;
+}
+
+
+.send-message-button {
+    width: 10%;
+    height: 2rem;
+    width: 3rem;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    background: white;
+    color: white;
+
+}
+
+
+
+.icon {
+    fill:#CCCCCC;
+}
+
+.icon:hover {
+    transition: 0.6s;
+    fill: #106dee;
+}
+
+
+.inner-right {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}
+
+.inner-left {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+.sender {
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    width: auto;
+    max-width: 50%;
+    padding: 10px;
+    border-radius: 20px;
+    background: #106dee;
+
+} 
+
+.receiver {
+    color: black;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: auto;
+    max-width: 50%;
+    padding: 10px;
+    background: #CCCCCC;
+    border-radius: 20px;
+}
+
+
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+

@@ -114,7 +114,7 @@ body,html {
 .oglas-wrapper {
     display: flex;
     flex-flow: row wrap;
-    justify-content:left;
+    justify-content:center;
 }
 
 .oglas {

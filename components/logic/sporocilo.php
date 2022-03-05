@@ -74,4 +74,23 @@ function checkPrejemnikID(&$prejemnikID) {
     }
    
 }
+
+
+function fetchChatMessages($conn,$posiljateljID,$prejemnikID) {
+    $sql = "SELECT spo.sporočiloID,
+                   spo.opis,
+                   spo.created_at,
+                   spo.prejemnikID,
+                   spo.posiljateljID
+            FROM Sporočilo spo 
+            WHERE (spo.prejemnikID = $prejemnikID AND spo.posiljateljID = $posiljateljID) OR (spo.posiljateljID = $prejemnikID AND spo.prejemnikID = $posiljateljID)";
+    
+    if ($result = mysqli_query($conn,$sql)) {
+        return $result;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        
+    }
+}
+
 ?>

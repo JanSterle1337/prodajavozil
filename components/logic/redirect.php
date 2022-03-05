@@ -6,8 +6,10 @@
         if (isset($_POST['uporabnik'])) {
             if ($_POST['uporabnik'] != "no_user") {
                 $uporabnikID = mysqli_real_escape_string($conn,$_POST['uporabnik']);
+                $sellerID = mysqli_real_escape_string($conn,$_POST['sellerID']);
+                echo "Seller: " . $sellerID;
                 echo "Uporabnik: " . $uporabnikID;
-                Header("Location: ../templates/sporocilo.php");
+                Header("Location: ../templates/sporocilo.php?chatID=$sellerID");
             } else {
                 Header("Location: ../templates/prijava.php");
 

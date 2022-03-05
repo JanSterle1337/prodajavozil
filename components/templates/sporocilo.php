@@ -6,7 +6,9 @@ require ("../logic/sporocilo.php");
 
 
 if (isset($_SESSION['id'])) {
+    
     $posiljateljID = mysqli_real_escape_string($conn,$_SESSION['id']);
+    $uporabnikID = $posiljateljID;
     /*echo "<pre style='margin-left: 100px;'>";
     var_dump($_SESSION);
     echo "</pre>"; */
@@ -57,7 +59,9 @@ if (isset($_SESSION['id'])) {
     <main>
         <div class='whole-page-wrapper'>
             <div class='close-wrapper'>
-                closing
+                <a href="sporocilo.php" style='display: flex; justify-content: right; align-items: right; align-self: right; margin-right: 20px;'>
+                    <svg class='icon' stroke="black" fill="gray" stroke-width="0" viewBox="0 0 1024 1024" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 0 1-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"></path></svg>
+                </a>
             </div>
             <div class='main-content-wrapper'>
 
@@ -131,6 +135,7 @@ if (isset($_SESSION['id'])) {
                         <div class='all-users-chats scroll'>
 
                         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                            <a class='user-chat-a' href='sporocilo.php?chatID=<?php echo $row['uporabnikID'] ?>'>
                                 <div class='user-chat'> 
                         <?php
                                     
@@ -146,7 +151,7 @@ if (isset($_SESSION['id'])) {
                                         <p><?php echo htmlspecialchars($row['ime']) . " " . htmlspecialchars($row['priimek']) ?></p>
                                         <p>Začni pogovor s to osebo</p>
                                 </div>
-                                   
+                            </a>     
 
                                 </div>
                         <?php   }  ?>
@@ -186,97 +191,45 @@ if (isset($_SESSION['id'])) {
                         </div>
 
                         <div class='messages'>
+
+                        <?php 
+                            $resultMessage = fetchChatMessages($conn,$posiljateljID,$prejemnikID);
+
+                            if (is_bool($result))  {
+                                echo "<div class='messages-wrap'>";
+                                    echo "<div class='inner'>Sporočilo ni bilo možno prikazati</div>";
+                            } else {
+                        ?>
+
+
                             <div class='messages-wrap'>
-                                <div class="inner">First message</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Hi</div>
-                                <div class="inner">Last message</div>
+                                <?php 
+                                    while ($rowMessage = mysqli_fetch_assoc($resultMessage)) {
+                                       
+                                        if ($rowMessage['posiljateljID'] === $uporabnikID) {
+                                            echo "<div class='inner-right'>";
+                                            echo "<p class='sender'>$rowMessage[opis]</p>";
+                                            echo "</div>";
+                                            
+                                        } else {
+                                            echo "<div class='inner-left'>";
+                                            echo "<p class='receiver'>$rowMessage[opis]</p>";
+                                            echo "</div>";
+                                        }
+                                        
+                                    }
+                                ?>
                             </div>
+                    <?php  } ?>
                         </div>
 
                         <div class='send-message-wrapper'>
                             
                             <form class='send-message-form' method="POST" action='sporocilo.php?chatID=<?php echo htmlspecialchars($chatID) ?>'>
-                                <input type='text' name='vnesenoSporocilo' required>
-                                <button type='submit' name='poslanoSporocilo'>Pošlji</button>
+                                <input type='text' class='input-message' name='vnesenoSporocilo' required>
+                                <button type='submit' name='poslanoSporocilo' class='send-message-button'>
+                                <svg class='icon' stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2.5em" width="2.5em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path></g></svg>
+                                </button>
                             </form>
                         </div>
                         
