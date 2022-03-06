@@ -2,7 +2,7 @@
     session_start();
     require ("../../config/db_connect.php");
     require ("../logic/oglas.php");
-
+    require ("../logic/errorCheckerFunctions.php");
     if (isset($_GET['id'])) {
         $oglasID = mysqli_real_escape_string($conn,$_GET['id']);
       
@@ -114,7 +114,7 @@
                         
                         <?php 
                             $retrievedData = getOglasInfo($conn,$oglasID);
-                            echo mysqli_num_rows($retrievedData);
+                            /*echo mysqli_num_rows($retrievedData); */
                             while ($row = mysqli_fetch_assoc($retrievedData)) {
                              /*   echo "<pre>";
                                 var_dump($row);
@@ -199,7 +199,7 @@
 
                         <?php 
                             $retrievedData = getOglasInfo($conn,$oglasID);
-                            echo mysqli_num_rows($retrievedData);
+                            /*echo mysqli_num_rows($retrievedData); */
                             while ($row = mysqli_fetch_assoc($retrievedData)) {
                              /*   echo "<pre>";
                                 var_dump($row);
@@ -242,13 +242,47 @@
                 <?php
                     $sellerData = getSellerInfo($conn,$sellerID);
                     $rowSeller = mysqli_fetch_assoc($sellerData);
+                   
                     foreach ($rowSeller as $key => $value) {
-                        if ($key !="uporabnikID") {
-                            echo "<div><p class='value'>$value</p></div>";
+                        if ($key !=="uporabnikID") {
+                            if ($key !== "created_at") {
+                                echo "<div><p class='value'>$value</p></div>";
+                            }
+                          
                         } else {
                             $sellerID = mysqli_real_escape_string($conn,$value);
                             
                         } 
+
+                        if ($key === "created_at") {
+                            $isUporabnikUstvarjen = "uporabnikUstvarjen";
+                            $seconds = formatDate($sellerID,$conn,$isUporabnikUstvarjen);
+                            $timeArr = secondsToTime($seconds);
+                            if (!is_array($timeArr)) {
+                                echo "<p class='value'>Uporabnik se je pridružil pred 1 sekundo</p>";
+                            } else {
+
+                                foreach ($timeArr as $timeDelimiter => $value) {
+                                            
+                                    if ($value > 0) {
+                                        if ($value === 1) {
+                                            echo "<p class='right centered'>Uporabnik se je pridružil $value $timeDelimiter o nazaj</p>";
+                                            break;
+                                        }
+                                        else if ($value === 2) {
+                                            echo "<p class='right centered'>Uporabnik se je pridružil$value $timeDelimiter i nazaj</p>";
+                                            break;
+                                        } else {
+                                            echo "<p class='right centered'>Uporabnik se je pridružil $value $timeDelimiter nazaj</p>";
+                                            break;
+                                        }
+                                        
+                                    }
+                                }
+
+                        }
+                        
+                        }
                         
                     }
                     
@@ -267,8 +301,8 @@
                 <?php   } ?>   
 
                         <input type="hidden" name="sellerID" value="<?php echo htmlspecialchars($sellerID); ?>"/>
-                        <button type="submit" name="sporocilo">Pošlji sporočilo</button>
-                        <button type="submit" name="ogled">Vsi oglasi prodajalca</button>
+                        <button class='poslji-button' type="submit" name="sporocilo">Pošlji sporočilo</button>
+                        <button class='vsi-oglasi-button' type="submit" name="ogled">Vsi oglasi prodajalca</button>
                     </form>        
                 </div>
             </div>
@@ -352,7 +386,7 @@
                 }
                 
             }
-            console.log(gallery.offsetHeight);
+            /*console.log(gallery.offsetHeight); */
             
         });
 

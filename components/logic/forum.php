@@ -315,6 +315,9 @@ function formatDate($komentarID,$conn,$isKomentar) {
     $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
                 FROM tema
             WHERE temaID = '$komentarID'";
+   } else if ($isKomentar = "uporabnikUstvarjen") {
+       $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                    FROM Uporabnik";
    }
    
     

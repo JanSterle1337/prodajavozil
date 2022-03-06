@@ -175,4 +175,89 @@ function isBrandSet($conn,&$queries,&$validation) {
       //  Header("Location: ../templates/ustvari.php?upload=sucess");
     }
 
+    function formatDate($komentarID,$conn,$isKomentar) {
+
+
+        if ($isKomentar === true) {
+         $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                     FROM Komentar
+                 WHERE komentarID = '$komentarID'";
+        } else if ($isKomentar === false) {
+         $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                     FROM Odgovor
+                 WHERE odgovorID = '$komentarID'";
+        } else if ($isKomentar == "temaUstvarjena") {
+         $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                     FROM tema
+                 WHERE temaID = '$komentarID'";
+        } else if ($isKomentar == "uporabnikUstvarjen") {
+            $sql = "SELECT UNIX_TIMESTAMP(created_at) as seconds
+                         FROM Uporabnik
+                         WHERE uporabnikID = '$komentarID'";
+        }
+
+
+        $result = mysqli_query($conn,$sql);
+        $data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        
+       
+
+        $dateSeconds = $data[0]['seconds'];
+    
+        $sql2 = "SELECT UNIX_TIMESTAMP(NOW()) as current_seconds";
+        if ($result2 = mysqli_query($conn,$sql2)) {
+            $data2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+            $dateNow = $data2[0]['current_seconds'];
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+        
+        $seconds = $dateNow - $dateSeconds;
+        
+        return $seconds;
+    }
+
+
+    function secondsToTime($inputSeconds) {
+
+        if (empty($inputSeconds)) {
+            return 0;
+        }
+    
+        $secondsInMinute = 60;
+        $secondsInAnHour = 60 * $secondsInMinute;
+        $secondsInADay = 24 * $secondsInAnHour;
+    
+        $days = floor($inputSeconds / $secondsInADay); //extract days
+    
+    
+        $hourSeconds = $inputSeconds % $secondsInADay;  //extract hours
+        $hours = floor($hourSeconds / $secondsInAnHour);
+    
+        
+        $minuteSeconds = $hourSeconds % $secondsInAnHour;   //extract minutes
+        $minutes = floor($minuteSeconds / $secondsInMinute);
+    
+    
+        $remainingSeconds = $minuteSeconds % $secondsInMinute; //extract the remaining seconds
+        $seconds = ceil($remainingSeconds);
+    
+    
+        $timeParts = [];        //store the data in array format
+        $sections = [
+            'dni' => (int)$days,
+            'ur' => (int)$hours,
+            'minut' => (int)$minutes,
+            'sekund' => (int)$seconds
+        ];
+    
+        /*echo "<pre>";
+        var_dump($sections);
+        echo "</pre>"; */
+    
+        return $sections;
+    
+    
+    }
+
     ?>
