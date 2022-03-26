@@ -50,7 +50,11 @@ function generateSearchQuery($conn) {
                                     INNER JOIN Slika sl ON   (og.oglasID = sl.oglasID)
                                     WHERE 
                                     og.status = 'neprodano' AND 
-                                    sl.imeSlike LIKE '%num0%'";
+                                    sl.imeSlike LIKE '%num0%' AND og.oglasID NOT IN (
+                                        SELECT 
+                                        karantena_oglasID
+                                        FROM oglas_karantena
+                                    )";
 
 
         if ($znamka == "Vse znamke") {

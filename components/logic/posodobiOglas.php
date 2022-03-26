@@ -76,7 +76,7 @@
                         unset($_SESSION['oglasID']);
                         unset($_SESSION['sellerID']);
                         unset($_SESSION['errorInfo']);
-                        //Header("Location: ../templates/domov.php");
+                        Header("Location: ../templates/domov.php");
                         
                         echo "Oglas posodobljen";
                     } else {

@@ -4,6 +4,10 @@
     if (isset($_SESSION["id"])) {
         unset($_SESSION["id"]);
     }
+
+    if (isset($_SESSION["adminID"])) {
+        unset($_SESSION["adminID"]);
+    }
     require "../logic/prijava.php";
 
     $error = "";
@@ -14,7 +18,7 @@
 
        if (checkLogin($email,$geslo,$conn, $error)) {
            echo "Bomo redirectal";
-           header("Location: domov.php");
+           header("Location: domov.php"); 
        } else {
            echo "ne bomo redirectal";
        }

@@ -41,3 +41,13 @@
     -webkit-box-shadow: 0px 1px 12px -2px black; 
     box-shadow: 0px 1px 12px -2px black;
 }
+
+.heading {
+    color: #106dee;
+}
+
+.closing-wrapper {
+    background: #00B2FF;
+    height: 5rem;
+    width: 100%;
+}

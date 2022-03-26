@@ -52,6 +52,7 @@ h1 {
     height: 25rem;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    margin-bottom: 2rem;
     
 }
 
@@ -66,6 +67,7 @@ h1 {
     display: flex;
     flex-direction: row;
     margin: 20px;
+    
 }
 
 .filter-div {
@@ -155,4 +157,71 @@ a {
     text-decoration: none;
     color: none;
     
+}
+
+.filter {
+    border-radius: 5px;
+    text-align: center;
+    height: 40px;
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 900px) {
+    .top {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+
+@media only screen and (max-width: 450px) {
+    .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .hitro-iskanje-wrapper {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .heading {
+        margin: 0 auto;
+        margin-top: 20px;
+        font-size: 25px;
+        text-align: center;
+    }
+    .close-wrapper {
+        display: none;
+    }
+
+    .cena-letnik-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cena-od-do-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .filter {
+        border-radius: 5px;
+        text-align: center;
+        height: 40px;
+    }
+
+    .hitro-iskanje {
+        width: 7rem;
+        height: 2.8rem;
+        font-size: 15px;
+    }
 }

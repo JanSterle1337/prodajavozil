@@ -5,7 +5,7 @@ body,html {
 
 
 .heading {
-    font-size: 45px;
+    font-size: 2rem;
     color: #106dee;
 }
 
@@ -61,7 +61,7 @@ body,html {
 
 
 label {
-    font-size: 1.5vw;
+    font-size: 1.5rem;
     color: #434343;
     margin: 10px;
     display: flex;
@@ -71,7 +71,7 @@ label {
 }
 
 input {
-    width: 25vw;
+    width: 20rem;
     height: 1.0vw;
     border: 0px;
     outline: none;
@@ -91,8 +91,8 @@ input:focus {
 
 
 textarea {
-    width: 100%;
-    height: 100px;
+    width: 30rem;
+    height: 20rem;
     outline: none;
     border: none;
     border-radius: 20px;
@@ -104,6 +104,7 @@ textarea {
     display: flex;
     flex-direction: column;
     align-self: center;
+    resize: none;
 }
 
 .success {
@@ -164,5 +165,20 @@ svg {
     svg {
         width: 2rem;
         height: 2rem;
+    }
+
+    input {
+        font-size: 20px;
+    }
+
+    textarea {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    textarea {
+        font-size: 20px;
+        width: 20rem;
     }
 }

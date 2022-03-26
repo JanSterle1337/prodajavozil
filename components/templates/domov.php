@@ -4,6 +4,10 @@
     require ("../../config/db_connect.php");
     require ("../logic/domov.php");
 
+    if (isset($_SESSION['adminID'])) {
+      unset($_SESSION['adminID']);
+    }
+
     if (isset($_SESSION["id"])) {
       /*  echo "<pre style='margin-left: 100px;'>";
         var_dump($_SESSION);

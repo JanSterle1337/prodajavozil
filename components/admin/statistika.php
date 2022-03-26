@@ -25,6 +25,9 @@ require ("../logic/errorCheckerFunctions.php");
     $averageZnamkaResult = averageCenaNaZnamko($conn);
     $najdrazjiResult = najdrazjiAvto($conn);
     $najcenejsiResult = najcenejsiAvto($conn);
+    $razmerjeMesecResult = razmerjeMedProdanimiMesec($conn);
+
+
     $i = 0;
     while ($row = mysqli_fetch_assoc($oglasiResult)) {
         
@@ -58,14 +61,24 @@ require ("../logic/errorCheckerFunctions.php");
         $i++;
     }
 
+
+    $rowRazmerje = mysqli_fetch_all($razmerjeMesecResult,MYSQLI_ASSOC); 
+    $razmerjeProdanih = $rowRazmerje[0]['stVozil'];
+    $razmerjeNeprodanih = $rowRazmerje[1]['stVozil'];
+
+    
+    /*echo "<pre style='margin-left: 100px;'>";
+    var_dump($rowRazmerje);
+    echo "Prodani: " . $razmerjeProdanih . "</br>";
+    echo "Neprodani: " . $razmerjeNeprodanih;
+    echo "</pre>"; */
+
     $najdrazjiAvto = mysqli_fetch_all($najdrazjiResult,MYSQLI_ASSOC);
     $najcenejsiAvto = mysqli_fetch_all($najcenejsiResult,MYSQLI_ASSOC);
     $najdrazji = $najdrazjiAvto[0];
     $najcenejsi = $najcenejsiAvto[0];
 
-    echo "<pre style='margin-left: 100px;'>";
-    var_dump($najdrazji);
-    echo "</pre>";
+   
     
 
 
@@ -93,11 +106,17 @@ require ("../logic/errorCheckerFunctions.php");
 <body>
     <?php require ("Sidebar.php") ?>
     <main>
+    <div class='closing-wrapper'>
+            
+    </div>
         <div class="main-page-wrapper">
+  
+        
 
             <div class='stats-wrapper'>
                 <div class='stat'>
-                    <p>Povprečna cena vozil: <?php echo number_format($povprecnaCena,2,',','') . " €" ?></p>
+                    <h1 class='heading'>Povprečna cena</h1>
+                        <p>Povprečna cena vozil: <?php echo number_format($povprecnaCena,2,',','') . " €" ?></p>
                     <?php  
                         for ($i = 0; $i < count($averageZnamka); $i++) {
                         echo $averageZnamka[$i]['znamka'] .": " . number_format($averageZnamka[$i]['povprecna_cena'],2,',','')  . " €" . "</br>";
@@ -107,7 +126,7 @@ require ("../logic/errorCheckerFunctions.php");
                 </div>
 
                 <div class='stat'>
-                    <h1>MAXIMUM - MINIMUM</h1>
+                    <h1 class='heading'>Maximum - Minimum</h1>
                     <p>Najdražji avto: <?php echo  number_format($najdrazji['cena']) . " €"; ?></p>
                     <p>Najcenejši avto: <?php echo  number_format($najcenejsi['cena']) . " €"; ?></p>
                 </div>
@@ -123,7 +142,7 @@ require ("../logic/errorCheckerFunctions.php");
                 </div>
                 
                 <div class='graph'>
-                    neki
+                    <canvas id="razmerje-prodanih-neprodanih" width="300" height="300"></canvas>
                 </div>
             </div>
         </div>
@@ -140,6 +159,10 @@ let znamkeCountArr = [];
 let modeliArr = [];
 let modelCountArr = [];
 
+let stProdNeprodArr = [];
+
+
+
 <?php for($i = 0; $i < count($oglasiArr); $i++) { ?>
 
     znamkeArr.push("<?php echo $oglasiArr[$i]["znamka"]; ?>");
@@ -154,6 +177,8 @@ let modelCountArr = [];
             modelCountArr.push("<?php echo $modeliArr[$i]["stProdanih"];?>");
 <?php   } ?>
 
+stProdNeprodArr[0] = <?php echo $razmerjeNeprodanih; ?>;
+stProdNeprodArr[1] = <?php echo  $razmerjeProdanih;?>;
 
 
 
@@ -219,6 +244,68 @@ let myGraph = new Chart("st-modelov-prodanih", {
         }],
     },
   },
+});
+
+
+/*
+let neki = new Chart("razmerje-prodanih-neprodanih", {
+  type: 'line',
+  data: {
+    labels: ["Prodani","neprodani","kupleni","neki"],
+    datasets: [{
+      label: 'Total prodani',
+      data: [1,2,4,3],
+      backgroundColor: [
+          'red',
+          'blue',
+          'yellow',
+          'green'
+      ]
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Število novih prodajanih vozil v zadnjem mesecu"
+    },
+    responsive: false,
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true,
+            },
+        }],
+    },
+  },
+});
+
+*/
+
+let neki = new Chart("razmerje-prodanih-neprodanih", {
+  type: 'pie',
+  data: {
+    labels: ['Prodani v zadnjem mesecu', 'novi oglasi'],
+    datasets: [{
+      label: '# of Tomatoes',
+      data: stProdNeprodArr,
+      backgroundColor: [
+        '#E29CF3',
+        '#9740E9',
+        
+      ],
+      borderColor: [
+        '#E29CF3',
+        '#9740E9',
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+   	//cutoutPercentage: 40,
+    responsive: false,
+
+  }
 });
 
 

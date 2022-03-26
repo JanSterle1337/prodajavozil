@@ -157,6 +157,10 @@ a {
     margin-bottom: 10px;
 }
 
+.personal-info {
+    font-size: 2rem;
+}
+
 @media only screen and (max-width: 1200px) {
     .personal-wrapper {
         width: 80%;
@@ -225,6 +229,46 @@ a {
         border-radius: 0px;
     }
 
+    .profile-wrapper {
+        padding-bottom: 10rem;
+        background: #eeeeee;
+    }
+
+    .personal-info {
+        font-size: 1.5rem;
+    }
     
+
+}
+
+
+@media only screen and (max-width: 500px) {
+
+    .profile-picture {
+        width: 10rem;
+        height: 10rem;
+    }
+
+    .settings {
+        font-size: 16px;
+    }
+
+    .personal-wrapper {
+        background: #EEEEEE;
+        -webkit-box-shadow: none;
+    }
+
+    .personal-info {
+        font-size: 1.5rem;
+    }
+
+    .heading {
+        font-size: 30px;
+    }
+
+    .profile-wrapper {
+        padding-bottom: 10rem;
+        background: #eeeeee;
+    }
 
 }

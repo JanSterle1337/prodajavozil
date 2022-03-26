@@ -95,4 +95,7 @@ function checkTel($tel, &$errors, &$conn, &$validation) {
     return false;
 }
 
+
+
+
 ?>
