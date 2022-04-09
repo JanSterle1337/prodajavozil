@@ -1,6 +1,6 @@
 <?php
-
     session_start();
+    echo "Je settan ogled";
     require ("../../config/db_connect.php");
     if (isset($_POST['sporocilo'])) {
         if (isset($_POST['uporabnik'])) {
@@ -18,8 +18,13 @@
         }
     }
     else if (isset($_POST['ogled'])) {
-        if (isset($_POST['seller'])) {
-            $prodajalecID = mysqli_real_escape_string($conn,$_POST['seller']);
+        echo "Je settan ogled";
+        echo "<pre>";
+        var_dump($_POST);
+        echo "</pre>";
+        if (isset($_POST['sellerID'])) {
+            
+            $prodajalecID = mysqli_real_escape_string($conn,$_POST['sellerID']);
             Header("Location: ../templates/vsiOglasi.php?prodajalecID=$prodajalecID");
         }
         

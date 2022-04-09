@@ -180,7 +180,7 @@ let stProdNeprodArr = [];
 stProdNeprodArr[0] = <?php echo $razmerjeNeprodanih; ?>;
 stProdNeprodArr[1] = <?php echo  $razmerjeProdanih;?>;
 
-
+console.log("razmerje prodanih neprodanih zadnji mesec: " + stProdNeprodArr);
 
 
 console.log(znamkeArr);

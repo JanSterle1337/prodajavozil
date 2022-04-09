@@ -50,11 +50,7 @@ function generateSearchQuery($conn) {
                                     INNER JOIN Slika sl ON   (og.oglasID = sl.oglasID)
                                     WHERE 
                                     og.status = 'neprodano' AND 
-                                    sl.imeSlike LIKE '%num0%' AND og.oglasID NOT IN (
-                                        SELECT 
-                                        karantena_oglasID
-                                        FROM oglas_karantena
-                                    )";
+                                    sl.imeSlike LIKE '%num0%'";
 
 
         if ($znamka == "Vse znamke") {
@@ -123,6 +119,13 @@ function generateSearchQuery($conn) {
             $validation["gorivo"] = " AND voz.pogon = '$gorivo'";
             $sql = $sql . $validation["gorivo"];
         }
+
+
+        $sql = $sql .  "AND og.oglasID NOT IN (
+            SELECT 
+            karantena_oglasID
+            FROM oglas_karantena
+        )";
 
 /*
         echo "<pre>";

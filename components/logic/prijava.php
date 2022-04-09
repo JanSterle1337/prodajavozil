@@ -6,7 +6,7 @@
 
 
     function checkLogin($email,$geslo,$conn, &$error) {
-        echo "v funkciji";
+       // echo "v funkciji";
        /* $sql = "SELECT uporabnikID,ePosta,geslo FROM Uporabnik
                 WHERE uporabnikID NOT IN 
                 (SELECT uporabnik_karantenaID FROM uporabnik_karantena
@@ -16,8 +16,8 @@
         $result = mysqli_query($conn,$sql);
         
         if (mysqli_num_rows($result) === 0) {
-            echo "ce ni nic v bazi";
-            $error = "Napačni ePoštni naslov ali geslo.";
+           // echo "ce ni nic v bazi";
+            $error = "Napačni e-poštni naslov ali geslo.";
             return false;
         } else {
             $users = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -44,31 +44,38 @@
 
                     $sql2 = "SELECT adminID,ePosta,geslo FROM `Admin`";
                     $result2 = mysqli_query($conn,$sql2);
-                    $error = "Napačni ePoštni naslov ali geslo";
+                    $error = "Napačni e-poštni naslov ali geslo";
                     if (mysqli_num_rows($result2) === 0) {
-                        echo "ce ni nic v bazi";
-                        $error = "Napačni ePoštni naslov ali geslo.";
+                       /* echo "ce ni nic v bazi"; */  
+                        $error = "Napačni e-poštni naslov ali geslo.";
                         return false;
                     } else {
                         $users = mysqli_fetch_all($result2,MYSQLI_ASSOC);
+                      //  echo "<pre>";
+                      // var_dump($users);
+                      //  echo "</pre>";
                         foreach ($users as $user) {
-                            echo "V foreach loopu za admina";
+                         //   echo "V foreach loopu za admina";
+                         //   echo "</br>$user[ePosta]</br>";
+                         //   echo "</br>$user[geslo]</br>";
+                         //   echo "Vpisano geslo je " . $geslo . "</br>";
                             if ($email === $user['ePosta'] && password_verify($geslo,$user["geslo"]) == 1) {
                                 $_SESSION["adminID"] = $user['adminID'];
                                 mysqli_free_result($result2);
                                 mysqli_close($conn);
                                 $error = "";
-                                echo "bomo redirectal na dashboard";
+                               // echo "bomo redirectal na dashboard";
                                 Header("Location: ../admin/dashboard.php"); 
                               /* return true; */
                             } {
-                                return false;
+                              //  echo "Ni prou";
                             }
                     }
+                    return false;
                 }
             
-            $error = "Napačni ePoštni naslov ali geslo.";
-            echo "zunej foreacha";
+            $error = "Napačni e-poštni naslov ali geslo.";
+           // echo "zunej foreacha";
             return false;
         }
     

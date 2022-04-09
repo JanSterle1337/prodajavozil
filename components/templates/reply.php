@@ -276,7 +276,7 @@ if (isset($_POST['ustvariReplyReply'])) {
                                                         <form action='reply.php' method='POST' class='column-direction'>
                                                             <input type='hidden' name='tema' value="<?php echo htmlspecialchars($temaID) ?>">
                                                             <input type='hidden' name='replyingToKomentar' value="<?php echo htmlspecialchars($komentarID) ?>">
-                                                            <textarea class='input-komentar' name='reply-input'></textarea>
+                                                            <textarea class='input-komentar vnos-replya' name='reply-input'></textarea>
                                                             <?php
                                                             if ($komentarValidation['validated'] === false) { ?>
                                                                 <p class='notOk'><?php echo htmlspecialchars($komentarValidation['message']) ?></p>
@@ -409,7 +409,7 @@ if (isset($_POST['ustvariReplyReply'])) {
                                                                 <input type='hidden' name='tema' value="<?php echo htmlspecialchars($temaID) ?>">
                                                                 <input type='hidden' name='replyingToReply' value="<?php echo htmlspecialchars($replyID) ?>">
                                                                 <input type='hidden' name='nested' value="<?php echo htmlspecialchars($nestedLvl); ?>">
-                                                                <textarea class='input-komentar' name='reply-reply-input'></textarea>
+                                                                <textarea class='input-komentar vnos-replya' name='reply-reply-input'></textarea>
                                                         <?php   if ($komentarValidation['validated'] === false) { ?>
                                                                 <p class='notOk'><?php echo htmlspecialchars($komentarValidation['message']) ?></p>
                                                        <?php   }?>

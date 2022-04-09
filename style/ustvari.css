@@ -193,3 +193,76 @@ textarea {
     justify-content: center;
     align-items: center;
 }
+
+
+@media only screen and (max-width: 860px) {
+    .heading {
+        font-size: 28px;
+    }
+
+    .heading-2 {
+        font-size: 22px;
+    }
+
+    .create-ads-form {
+    
+    }
+
+    .brand-selection-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        justify-content: center;
+    }
+
+    .mobile-width {
+        width: auto;
+        display: column;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bottom {
+        display: flex;
+        width: 90%;
+    }
+
+    .data-input {
+        border-radius: 15px;
+        outline: none;
+        border: 1px solid gray;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        
+    }
+
+    .data-input:focus {
+        border: 2px solid #106dee;
+        
+    }
+
+    .opis-input {
+        width: 15rem;
+        height: 10rem;
+        border-radius: 10px;
+        border: 1px solid gray;
+        resize: none;
+    }
+
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+}

@@ -532,3 +532,150 @@ a {
 svg:hover {
     fill:#106dee;
 }
+
+
+@media only screen and (max-width: 860px) {
+    textarea.input-komentar {
+        resize: none;
+        width: 90%;
+        font-size: 18px;
+        height: 10rem;
+    }
+
+    .vnos-replya {
+        resize: none !important;
+        width: 90% !important;
+    }
+
+    .add-komentar-wrapper {
+        margin: 0;
+    }
+
+    .tema-header-wrapper {
+        margin: 0px;
+    }
+
+    .close-wrapper {
+        padding: 0px;
+    }
+
+    .main-page-content {
+        margin: 0px;
+        
+    }
+
+    .line-bottom {
+        border-bottom: 2px solid gray;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .teme {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0px;
+        background: white;
+        box-shadow: none;
+        border-bottom: 1px solid gray;
+        border-top: 1px solid gray;
+        border-radius: 0px;
+    }
+
+    .teme-wrapper {
+        margin: 0 auto;
+    }
+
+    .posodobi-temo-link {
+        background: #eeee;
+    }
+
+    .nova-tema-wrapper {
+        margin: 0 auto;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .left.bold {
+        font-size: 18px;
+    }
+    .naslov-tema {
+        font-size: 22px;
+    }
+
+    .input-tema-naslov {
+        width: 20rem;
+        height: 1.5rem;
+        font-size: 0.8rem;
+    }
+    .text-tema {
+        resize: none;
+        width: 20rem;
+        font-size: 0.8rem;
+    }
+
+    .objavi-komentar {
+        height: 45px;
+        width: 110px;
+        font-size: 16px;
+    }
+
+    .profile-picture {
+        width: 3.5rem;
+        height:3.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        
+    }
+
+    .first-last-name-para {
+        font-size: 18px;
+    }
+
+    .person-data-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 10px;
+        align-items: left;
+        flex-direction: column;
+        margin: 2px;
+    }
+
+    .date-para {
+        font-size: 13px;
+    }
+
+    .naslov-para {
+        font-size: 1.5rem;
+        margin: 10px;
+    }
+
+    .razprava {
+        font-size: 1.2rem;
+    }
+
+    .add-komentar {
+        font-size: 1.5rem;
+        margin: 10px;
+    }
+
+    textarea.input-komentar {
+        resize: none;
+        width: 18rem;
+        font-size: 18px;
+        height: 10rem;
+    }
+
+    .komentar-para {
+        font-size: 17px;
+    }
+
+    .line {
+        border-left:2px solid gray;
+    }
+
+    .line-wrapper {
+        width: 3.5rem;
+    }
+}

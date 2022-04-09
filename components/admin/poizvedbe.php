@@ -88,12 +88,12 @@ function najcenejsiAvto($conn) {
 
 function razmerjeMedProdanimiMesec($conn) {
     $sql = "SELECT COUNT(ogl.oglasID) as stVozil FROM Oglas ogl 
-            WHERE ogl.status = 'neprodano' AND (ogl.created_at > ADDDATE(CURDATE(), -30))
+            WHERE ogl.status = 'neprodano' AND (ogl.created_at >= ADDDATE(CURDATE(), -30))
             
             UNION 
 
             SELECT COUNT(ogl.oglasID) as stVozil FROM Oglas ogl 
-            WHERE ogl.status = 'prodano' AND (ogl.updated_at > ADDDATE(CURDATE(), -30))
+            WHERE ogl.status = 'prodano' AND (ogl.updated_at >= ADDDATE(CURDATE(), -30))
             ";
 
     if ($result = mysqli_query($conn,$sql)) {

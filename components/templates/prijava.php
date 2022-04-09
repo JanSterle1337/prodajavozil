@@ -17,10 +17,10 @@
         $geslo = mysqli_real_escape_string($conn,$_POST["geslo"]);
 
        if (checkLogin($email,$geslo,$conn, $error)) {
-           echo "Bomo redirectal";
+           /*echo "Bomo redirectal"; */
            header("Location: domov.php"); 
        } else {
-           echo "ne bomo redirectal";
+           /*echo "ne bomo redirectal";*/
        }
 
     }
@@ -59,7 +59,7 @@
                 <h1 class="hello">Pozdravljen!</h1>
                 <p class="text">Če želiš uporabiti vse funkcionalnosti aplikacije,
                     se prosim prijavi ali pa naredi nov račun.</p>
-                <form>
+                <form action="registracija.php">
                     <button type="submit" class="registracija">Registracija</button>
                 </form>        
 

@@ -3,7 +3,7 @@
     margin-top: 10px;
     background: #EEEEEE;
     border-radius: 20px;
-    
+    padding-bottom: 5rem;
     
 }
 
@@ -47,3 +47,14 @@ a {
     
 }
 
+.cena {
+font-weight: bold;
+font-size: 20px;
+line-height: 1em;
+letter-spacing: 1px;
+color: #106dee;
+}
+
+.ime-oglasa {
+    color: black;
+}

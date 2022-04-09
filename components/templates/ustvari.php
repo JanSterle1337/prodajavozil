@@ -3,9 +3,9 @@ session_start();
 require ("../../config/db_connect.php");
 
 if (isset($_SESSION['errorInfo'])) {
-    echo "<pre style='margin-left: 100px;'>";
+    /*echo "<pre style='margin-left: 100px;'>";
     var_dump($_SESSION['errorInfo']);
-    echo "</pre>";
+    echo "</pre>"; */
     
 }
 
@@ -46,39 +46,41 @@ if (isset($_SESSION['errorInfo'])) {
 
               <main>
                 <div class="create-ads-wrapper">
-                    <h1>Ustvari nov oglas</h1>
+                    <h1 class="heading">Ustvari nov oglas</h1>
                         <form class="create-ads-form" action="../logic/ustvariOglas.php" enctype="multipart/form-data" METHOD="POST">
-                            <h2>Osnovni podatki o vozilu</h2>
+                            <h2 class="heading-2">Osnovni podatki o vozilu</h2>
                                 <div class="brand-selection-wrapper">
-                                    <select id="SelectA" name="znamka" onchange="my_fun(this.value);"> 
-                                    <?Php 
-                                        $sqlBrand = "SELECT znamka from Znamka";
-                                        $result = mysqli_query($conn,$sqlBrand);
-                                        $brands = mysqli_fetch_all($result);
-                                    /* echo "<pre>";
-                                        var_dump($brands);
-                                        echo "</pre>"; */
+                                    <div class="mobile-width">
+                                        <select id="SelectA" name="znamka" onchange="my_fun(this.value);"> 
+                                        <?Php 
+                                            $sqlBrand = "SELECT znamka from Znamka";
+                                            $result = mysqli_query($conn,$sqlBrand);
+                                            $brands = mysqli_fetch_all($result);
+                                        /* echo "<pre>";
+                                            var_dump($brands);
+                                            echo "</pre>"; */
 
-                                        foreach ($brands as $brand) {
-                                            echo "<option class='brand-option' value='$brand[0]'>$brand[0]</option>";
-                                        } 
-                                    ?>
-                                    </select> 
+                                            foreach ($brands as $brand) {
+                                                echo "<option class='brand-option' value='$brand[0]'>$brand[0]</option>";
+                                            } 
+                                        ?>
+                                        </select> 
 
-                                
+                                    
 
-                                    <div id='poll'>
-                                        <select style=' width: 15rem; height: 3rem; font-size: 1.5rem;padding: 5px;'>
-                                            <option>Izberi model</option>
-                                        </select>
-                                    </div>
+                                        <div id='poll'>
+                                            <select style=' width: 15rem; height: 3rem; font-size: 1.5rem;padding: 5px;'>
+                                                <option>Izberi model</option>
+                                            </select>
+                                        </div>
 
-                                    <div>
-                                        <select name="letnik" id="SelectA">  
-                                            <?php for ($i = 2022; $i > 1971; $i--) {  
-                                                echo "<option value='$i'>$i</option>";
-                                                } ?>
-                                        </select>
+                                        <div>
+                                            <select name="letnik" id="SelectA">  
+                                                <?php for ($i = 2022; $i > 1971; $i--) {  
+                                                    echo "<option value='$i'>$i</option>";
+                                                    } ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             <div class="pogon-wrapper">
@@ -122,7 +124,7 @@ if (isset($_SESSION['errorInfo'])) {
 
                                 <div class="bottom">
                                     <label class="opis">Opis vozila oz. oglasa</label>
-                                        <textarea name="opisVozila" id="opisVozila"></textarea>
+                                        <textarea class="opis-input" name="opisVozila" id="opisVozila"></textarea>
                                 </div>
                             </div>
 

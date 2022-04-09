@@ -71,7 +71,7 @@ function checkPriimek($priimek,&$errors, &$conn,&$validation) {
 
 function checkGeslo(&$geslo, &$errors, &$conn, &$validation) {
     if (empty($geslo)) {
-        $erros["geslo"] = "Potrebno je vpisat geslo";
+        $errors["geslo"] = "Potrebno je vpisat geslo";
         return false;
     }
     else if (strlen($geslo) < 8) {

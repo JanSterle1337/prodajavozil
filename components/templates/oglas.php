@@ -60,7 +60,7 @@
 
             <div class="oglas-wrapper">
                 <div class="gallery-wrapper" id="gallery-wrap">
-                <div class="heading" id="head">
+                <div  id="head">
                     <h1>Oglas</h1>
                 </div>
                 <div class="gallery"></div>
@@ -68,7 +68,7 @@
                     <div class="button-wrapper"></div>
                     <div class="info">
                         <div class="left">
-                            <h2>Specifični podatki</h2>
+                            <h2 class="smaller">Specifični podatki</h2>
     
                             <?php 
                             $retrievedData = getOglasInfo($conn,$oglasID);
@@ -101,7 +101,7 @@
                              ?>
                         </div>
                         <div class="right">
-                            <h2>Opis</h2>
+                            <h2 class="smaller">Opis</h2>
                             <?php
                             $retrievedData = getOglasInfo($conn,$oglasID);
                             while ($row = mysqli_fetch_assoc($retrievedData)) {
@@ -128,8 +128,8 @@
                             <input type="hidden" name="sellerID" value="<?php echo htmlspecialchars($sellerID); ?>"/>
                             <input type="hidden" name="userID" value="<?Php echo htmlspecialchars($_SESSION['id']) ?>"/>
                             <input type="hidden" name="oglasID" value="<?Php echo htmlspecialchars($oglasID) ?>"/>
-                            <button type="submit" name="posodobi">Posodobi oglas</button>
-                            <button type="submit" name="izbrisi">Izbriši oglas</button>
+                            <button type="submit" name="posodobi" class="poslji-button">Posodobi oglas</button>
+                            <button type="submit" name="izbrisi" class="poslji-button">Izbriši oglas</button>
                         </form>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
 
         <div class="oglas-wrapper">
             <div class="gallery-wrapper" id="gallery-wrap">
-                <div class='heading' id='head'>
+                <div  id='head'>
                     <h1>Oglas</h1>
                 </div>
                 <div class="gallery"></div>
@@ -153,7 +153,7 @@
                     <div class="button-wrapper"></div>
                     <div class="info">
                         <div class="left">
-                            <h2>Specifični podatki</h2>
+                            <h2 class="smaller">Specifični podatki</h2>
     
                             <?php 
                             $retrievedData = getOglasInfo($conn,$oglasID);
@@ -186,7 +186,7 @@
                              ?>
                         </div>
                         <div class="right">
-                            <h2>Opis</h2>
+                            <h2 class="smaller">Opis</h2>
                             <?php
                             $retrievedData = getOglasInfo($conn,$oglasID);
                             while ($row = mysqli_fetch_assoc($retrievedData)) {

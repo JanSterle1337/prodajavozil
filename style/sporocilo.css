@@ -6,6 +6,8 @@
 }
 */
 
+
+
 .whole-page-wrapper {
     width: auto;
     height: 100%;
@@ -16,15 +18,16 @@
 
 .main-content-wrapper {
     align-self: center;
-    padding: 30px;
+    
+    padding-bottom: 0px;
     display: flex;
     flex-direction: column;
     background: white;
-    border-radius: 20px;
+    border-radius: 0px;
     align-items: center;
     justify-content: center;
-    width: 90%;
-    height: 45rem;
+    /*width: 90%;*/
+    height: 100%;
     box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
     -webkit-box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
     -moz-box-shadow: 10px 9px 20px -10px rgba(0,0,0,0.38);
@@ -42,13 +45,17 @@
     align-items: right;
 }
 
+.all-users-wrapper-wrapper {
+    background: #eeeeee;
+}
 
 .all-users-wrapper {
     display: flex;
     flex-direction: column;
-    background: lightgreen;
+    /*background: lightgreen; */
     overflow: scroll;
     height: 600px;
+    width: 80%
 }
 
 .whole-user-info {
@@ -57,7 +64,19 @@
 }
 
 .all-users-info {
-    background: lightblue;
+    /*background: lightblue; */
+}
+
+.user-chat-specific {
+    background: #eeee;
+    
+}
+
+
+.user-chat-specific:hover {
+    background: #bebebe;
+    transition: 0.5s;
+    
 }
 
 .all-users-chats  {
@@ -86,7 +105,7 @@
 
 .user-chat-a {
     display: flex;
-  
+    width: 100%;
 
 }
 
@@ -117,6 +136,7 @@
 a {
     text-decoration: none;
     color: #434343;
+   
 }
 
 
@@ -136,12 +156,14 @@ a {
 
 .left {
     padding: 20px;
+    padding-bottom: 0px;
     width: 30%;
 }
 
 .right {
     padding: 20px;
     width: 70%;
+    padding-bottom: 0px;
 }
 
 .left-header {
@@ -182,6 +204,7 @@ a {
 .send-message-wrapper {
     display: flex;
     align-self: flex-end;
+   
 
 }
 
@@ -248,27 +271,28 @@ a {
 
 .sender {
     color: white;
-    display: flex;
-    justify-content: right;
-    align-items: right;
+    display: block;
     width: auto;
     max-width: 50%;
     padding: 10px;
-    border-radius: 20px;
     background: #106dee;
+    border-radius: 20px;
+    height: auto;
+    word-break: break-all;
 
-} 
+}
 
 .receiver {
-    color: black;
-    display: flex;
-    justify-content: left;
-    align-items: left;
-    width: auto;
-    max-width: 50%;
-    padding: 10px;
-    background: #CCCCCC;
-    border-radius: 20px;
+        color: black;
+        display: block;
+        
+        width: auto;
+        max-width: 50%;
+        padding: 10px;
+        background: #CCCCCC;
+        border-radius: 20px;
+        height: auto;
+        word-break: break-all;
 }
 
 
@@ -291,3 +315,115 @@ a {
     background-color: #a8bbbf;
   }
 
+.main-content-wrapper {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.right {
+    width: 100%;
+}
+
+html,body {
+    height: 100%;
+    width: 100%;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    .messages {
+        height: 380px;
+    }
+
+    .right {
+        padding: 0;
+    }
+
+    .chat-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+   
+    .main-content-wrapper {
+        height: 100%;
+    }
+
+    .whole-page-wrapper {
+        height: 100%    
+    }
+
+    .send-message-wrapper {
+        display: flex;
+        align-self: flex-end;
+        padding-bottom: 5rem;
+    
+    }
+    .sender {
+        color: white;
+        display: block;
+        
+        width: auto;
+        max-width: 50%;
+        padding: 10px;
+        background: #106dee;
+        border-radius: 20px;
+        height: auto;
+        word-break: break-all;
+
+    }
+
+    .reicever {
+        color: black;
+        display: block;
+        
+        width: auto;
+        max-width: 50%;
+        padding: 10px;
+        background: #CCCCCC;
+        border-radius: 20px;
+        height: auto;
+        word-break: break-all;
+
+    }
+
+    
+
+    .inner-right {
+       
+    }
+    
+}
+/*
+
+@media only screen and (min-width: 768px) {
+
+
+
+    .whole-page-wrapper {
+        height: 1000px;
+    }
+    .main-content-wrapper {
+        width: 100%;
+    }
+
+    .all-users-wrapper {
+        display: flex;
+        flex-direction: column;
+        /*background: lightgreen; */
+        /*overflow: scroll;
+        height: 600px;
+        width: 100%
+    }
+
+    .display-on-mobile {
+        display: none;
+    }
+
+    
+}*/

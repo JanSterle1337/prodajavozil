@@ -26,7 +26,7 @@ if (isset($_GET['prodajalecID'])) {
             
         
             <?php 
-                echo "hello";
+                
                 $allUserOglasiResult = allSellerOglasi($conn,$sellerID);
                 if (mysqli_num_rows($allUserOglasiResult) == 0) {
                     echo "<p>Ta prodajalec nima objavljenih nobenih oglasov</p>";
@@ -55,6 +55,6 @@ if (isset($_GET['prodajalecID'])) {
 
 
 <?php }  else {?>
-    <p>Helllou</p>
+    
 <?php } ?>
 

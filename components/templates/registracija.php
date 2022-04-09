@@ -20,35 +20,35 @@
             $validation["email"] = true;
         } else {
             $validation["email"] = false;
-            echo "email false";
+           // echo "email false";
         }
 
         if (checkIme($ime,$errors,$conn,$validation)) {
             $validation["ime"] = true;
         } else {
             $validation["ime"] = false;
-            echo "ime false";
+           // echo "ime false";
         }
 
         if (checkPriimek($priimek,$errors,$conn,$validation)) {
             $validation["priimek"] = true;
         } else {
             $validation["priimek"] = false;
-            echo "priimek false";
+            //echo "priimek false";
         }
 
         if (checkGeslo($geslo,$errors, $conn, $validation)) {
             $validation["geslo"] = true;
         } else {
             $validation["geslo"] = false;
-            echo "geslo false";
+            //echo "geslo false";
         }
 
         if (checkTel($tel,$errors,$conn,$validation)) {
             $validation["tel"] = true;
         } else {
             $validation["tel"] = false;
-            echo "tel false";
+           // echo "tel false";
         }
 
         $checker = false;
@@ -110,7 +110,7 @@
                     <p class="left-content-para">Če še nimaš računa se registriraj,
                         če ne pa se prijavi.
                     </p>
-                    <form style="display: flex; flex-direction: column; align-items: center;">
+                    <form style="display: flex; flex-direction: column; align-items: center;" action="prijava.php">
                         <button type="submit" class="prijava">prijava</button>
                     </form>  
                 </div>

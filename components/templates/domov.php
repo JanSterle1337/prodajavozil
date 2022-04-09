@@ -232,7 +232,10 @@
                             INNER JOIN Vozilo voz ON (og.voziloID = voz.voziloID)
                             INNER JOIN Slika sl ON   (og.oglasID = sl.oglasID)
                             WHERE 
-                            og.status = 'neprodano' AND sl.imeSlike LIKE '%num0%';";
+                            og.status = 'neprodano' AND sl.imeSlike LIKE '%num0%' AND og.oglasID NOT IN (
+                            SELECT 
+                            karantena_oglasID
+                            FROM oglas_karantena)";
                     
                      /*$result = mysqli_query($conn,$sql) or die("Napaka pri nalaganju podatkov"); ?> */
                        $result = mysqli_query($conn,$sql);

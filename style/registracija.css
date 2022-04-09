@@ -1,3 +1,13 @@
+:root {
+    font-size: 16px;
+    font-family: 'Arial';
+    --text-primary: #b6b6b6;
+    --text-secondary: #ececec;
+    --bg-primary: #106dee;
+    --bg-secondary: #00B2FF;
+    --transition-speed: 600ms;
+  }
+
 html,body {
     width: 100%;
     height: 100%;
@@ -151,7 +161,7 @@ html,body {
     font-size: 20px;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1800px) {
     .left-header {
         font-size: 45px;
         text-align: center;
@@ -159,6 +169,64 @@ html,body {
 
     .left-content-para {
         font-size: 18px;
+    }
+    .register-heading {
+        font-size: 30px;
+        margin-top: 0px;
+    }
+
+    .form {
+        
+    }
+
+    .form-wrapper {
+        height: 100;
+    }
+    .registracija {
+        width: 100%;
+        height: 100%;
+    }
+
+    .input {
+        border: 1px solid gray;
+        border-radius: 15px;
+        height: 30px;
+        margin: 8px;
+        width: 50%;
+        
+    }
+
+    .input:focus {
+        border: 2px solid #106dee;
+    }
+
+    .form-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+    .error {
+        margin: 10px;
+    }
+
+    .registracija-gumb {
+        width: 7rem;
+        height: 3rem;
+        font-size: 16px;
+    }
+
+    .left-header {
+        font-size: 30px;
+    }
+
+    .left-content-para {
+        font-size: 18px;
+        margin: 10px;
+    }
+    .prijava {
+        width: 7rem;
+        height: 3rem;
     }
 }
 
@@ -185,14 +253,20 @@ html,body {
 
     .right {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
     }
 }
 
 @media only screen and (max-width: 768px) {
     .register-heading {
         text-align: center;
-        font-size: 45px;;
+        font-size: 30px;;
         color: #106dee;
+        margin-top: 20px;
     }
 
     .input {
